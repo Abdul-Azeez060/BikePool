@@ -1,0 +1,37 @@
+<% layout('./layout/boilerplate') -%>
+<h2>Verification</h2>
+
+  <div class="pe_signin_button" data-client-id="11494476566363047393">
+    <script src="https://www.phone.email/sign_in_button_v1.js" async></script>
+  </div>
+
+  <form  class="user" action="/user/successfull" method="POST">
+    <input type="hidden" name="user_json_url" id="user_json_url" />
+    <input type="hidden" name="user_country_code" id="user_country_code" />
+    <input  type="hidden" name="user_phone_number" id="user_phone_number" />
+  </form>
+  <script>
+    // Ensure the function is exposed to the global scope
+    window.phoneEmailListener = function (userObj) {
+      var user_json_url = userObj.user_json_url; // Eg URL: https://user.phone.email/user_abcxd123fgbfg43454.json
+      console.log(user_json_url)
+      var user_country_code = userObj.user_country_code;
+      console.log(user_country_code)
+      var user_phone_number = userObj.user_phone_number;
+      console.log(user_phone_number)
+      document.getElementById("user_json_url").value = user_json_url;
+        document.getElementById("user_country_code").value = user_country_code;
+        document.getElementById("user_phone_number").value = user_phone_number;
+      console.dir( document.querySelector(".user"))
+        // Submit the form
+        document.querySelector(".user").submit();
+      alert(
+        "SUCCESS !!\nYour phone number " +
+          user_country_code +
+          " " +
+          user_phone_number +
+          " has been authenticated."
+      );
+    };
+  </script>
+</form>

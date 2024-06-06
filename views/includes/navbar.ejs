@@ -1,0 +1,71 @@
+<style>
+  .navbar {
+    height: 5rem;
+    background-color: white;
+  }
+
+  .headlink {
+    font-size: 1rem;
+  }
+
+  .active {
+    font-weight: bolder;
+    color: black;
+  }
+
+  .login {
+    padding: 0.2rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    color: white;
+  }
+  .register {
+    font-weight: bolder;
+    padding: 0.5rem;
+    margin-right: 1rem;
+  }
+  #highlight {
+    color: rgb(49, 113, 219);
+    font-weight: 900;
+    font-size: 2rem;
+    text-shadow: 1px 1px;
+  }
+</style>
+
+<div class="navbar navbar-expand-md sticky-top border-bottom bg-body-light">
+  <div class="container-fluid ms-1 me-1">
+    <div>
+      <a class="navbar-brand" href="#"><span id="highlight">bike</span>Pool</a>
+    </div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2">
+        <li class="nav-item ms-3">
+          <a href="#" class="nav-link headlink active">Home</a>
+        </li>
+        <li class="nav-item ms-3">
+          <a href="/bookings" class="nav-link headlink">Bookings</a>
+        </li>
+        <li class="nav-item ms-3">
+          <a href="/bookings/new" class="nav-link headlink">Drive</a>
+        </li>
+        <li class="nav-item ms-3">
+          <a href="#" class="nav-link headlink">About Us</a>
+        </li>
+        <li class="nav-item badge text-bg-primary login ms-3">
+          <a href="#" class="nav-link" style="color: white">
+            <i class="fa-regular fa-user me-2" style="color: #ffffff"></i
+            >Login</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

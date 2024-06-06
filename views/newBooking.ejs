@@ -1,0 +1,162 @@
+<% layout('./layout/boilerplate') -%>
+<style>
+  body {
+    overflow: scroll;
+  }
+  .container {
+    width: 70vw;
+    padding: 2rem;
+    background-color: rgb(250, 247, 250);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .bike {
+    position: relative;
+    top: 2rem;
+    bottom: 0rem;
+    left: auto;
+    right: auto;
+  }
+
+  @media (max-width: 565px) {
+    .bike {
+      display: none;
+    }
+    .container {
+      margin-top: 2rem;
+    }
+  }
+
+  @media (max-height: 712px) {
+    .bike {
+      display: none;
+    }
+    .container {
+      margin-top: 2rem;
+    }
+  }
+</style>
+<link rel="stylesheet" href="/css/bike.css" />
+<body>
+  <div class="container border">
+    <legend>Drive</legend>
+    <form action="/bookings" class="needs-validation" method="post" novalidate>
+      <div class="mb-3">
+        <label for="pickUp" class="form-label">Enter PickUp location</label>
+        <input
+          type="text"
+          id="pickUp"
+          class="form-control"
+          name="booking[pickUp]"
+          placeholder="Starting At"
+          required />
+        <div class="invalid-feedback">Please choose Pick Up Point.</div>
+      </div>
+      <div class="mb-3">
+        <label for="dropIn" class="form-label">Enter DropIn location</label>
+        <input
+          type="text"
+          id="dropIn"
+          class="form-control"
+          name="booking[dropIn]"
+          placeholder="Destination"
+          required />
+        <div class="invalid-feedback">Please choose a Drop In Point.</div>
+      </div>
+      <div class="mb-3">
+        <label for="timeToStart" class="form-label">Will start in</label>
+        <input
+          type="text"
+          id="timeToStart"
+          class="form-control"
+          name="booking[time]"
+          placeholder="Eg 2, 5, 10 (in minutes)"
+          required />
+        <div class="invalid-feedback">
+          Please specify in how many minutes you will start
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input
+          type="text"
+          id="price"
+          class="form-control"
+          name="booking[price]"
+          placeholder="Eg 10, 12, 15 (in rupees)"
+          required />
+        <div class="invalid-feedback">Please specify price</div>
+      </div>
+      <button type="submit" class="btn btn-outline-primary">Submit</button>
+    </form>
+
+    <div class="bike">
+      <div class="bicycle-container">
+        <div class="wheel back-wheel">
+          <div class="tire"></div>
+          <div class="rim"></div>
+          <div class="spokes"></div>
+          <div class="spokes"></div>
+          <div class="hub"></div>
+        </div>
+        <div class="wheel front-wheel">
+          <div class="tire"></div>
+          <div class="rim"></div>
+          <div class="spokes"></div>
+          <div class="spokes"></div>
+          <div class="hub"></div>
+        </div>
+        <div class="gear">
+          <div class="gear-red"></div>
+          <div class="tube pedal-tube"></div>
+          <div class="pedal"></div>
+        </div>
+        <div class="tube chain-tube"></div>
+        <div class="tube seat-tube-back"></div>
+        <div class="tube seat-tube-front"></div>
+        <div class="tube seat-tube-post"></div>
+        <div class="tube top-tube"></div>
+        <div class="tube top-handlebar-tube"></div>
+        <div class="tube top-handlebar-tube2"></div>
+        <div class="tube down-tube"></div>
+        <div class="tube head-tube"></div>
+        <div class="tube head-tube-post"></div>
+        <div class="saddle"></div>
+        <div class="handlebars"></div>
+      </div>
+      <div class="ground-container">
+        <div class="ground ground1"></div>
+        <div class="ground ground2"></div>
+        <div class="ground ground3"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+      "use strict";
+
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      const forms = document.querySelectorAll(".needs-validation");
+
+      // Loop over them and prevent submission
+      Array.from(forms).forEach((form) => {
+        form.addEventListener(
+          "submit",
+          (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+
+            form.classList.add("was-validated");
+          },
+          false
+        );
+      });
+    })();
+  </script>
+  <script src="/js/bike.js"></script>
+</body>

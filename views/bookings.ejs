@@ -1,0 +1,113 @@
+<% layout('./layout/boilerplate') -%>
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .order {
+    display: flex;
+    margin-bottom: 2rem;
+    border: 1px solid rgb(170, 165, 165);
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: 40px;
+    background-color: white;
+    align-items: center;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50vw;
+    margin-bottom: 1rem;
+    height: 5rem;
+    padding: 1rem;
+  }
+
+  img {
+    width: 5rem;
+    border-radius: 50%;
+  }
+
+  #colorPickUp {
+    color: green;
+  }
+  #colorDropIn {
+    color: red;
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .box {
+    margin: 4rem;
+    padding: 1rem;
+    width: 80vw;
+  }
+
+  .item p {
+    width: 8rem;
+    margin: 0px;
+  }
+  .address {
+    font-size: 1.4rem;
+  }
+
+  .pickUp {
+    width: max-content;
+    margin: 0;
+    padding: 0;
+  }
+
+  #name {
+    font-weight: 800;
+    font-size: large;
+    width: 20rem;
+    margin-bottom: 0rem;
+  }
+
+  @media (max-width) {
+  }
+</style>
+<body>
+  <div class="box mt-3 ms-auto me-auto">
+    <% for(let order of orders) { %> <% if (order.isBooked == false) { %>
+    <div class="order ms-auto me-auto">
+      <div class="profile1">
+        <img
+          src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
+          alt="profile pic" />
+        <p id="name">Name: <%= order.name %>&nbsp;</p>
+        <p id="name">Price: &#8377;<%= order.price %>&nbsp;</p>
+      </div>
+      <div class="item">
+        <p>
+          <span id="startTime">Start Time</span>: <br />
+          <span class="address"><%= order.time %></span>
+        </p>
+
+        <p>
+          <span id="colorPickUp">PickUp</span>: <br />
+          <span class="address"><%= order.pickUp %></span>
+        </p>
+
+        <p>
+          <span id="colorDropIn">DropIn</span>: <br />
+          <span class="address"><%= order.dropIn %>&nbsp;</span>
+        </p>
+      </div>
+      <div class="buttons">
+        <a href="/bookings/<%= order._id %>" class="btn btn-outline-success"
+          >Book Now</a
+        >
+      </div>
+    </div>
+    <% } %> <% } %>
+  </div>
+  <script>
+    setTimeout(() => {
+      window.location.replace(location.href);
+    }, 12 * 1000);
+  </script>
+</body>

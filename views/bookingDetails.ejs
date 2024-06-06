@@ -1,0 +1,116 @@
+<% layout('./layout/boilerplate') -%>
+<style>
+  .container {
+    display: flex;
+  }
+  .maps {
+    width: 30vw;
+    position: absolute;
+    left: 0;
+  }
+  .driver {
+    background-color: #fff;
+    padding: 2rem;
+  }
+  .arrivaltime {
+    width: 30rem;
+    display: flex;
+    justify-content: space-between;
+    width: max-content;
+  }
+  .arrivaltime span {
+    font-size: x-large;
+  }
+  .arrivaltime h4 {
+    font-weight: 900;
+    margin-right: 5rem;
+  }
+  .photo {
+    display: flex;
+    flex-direction: column;
+  }
+  .bikeDetails {
+    width: 30rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .bikeDetails img {
+    width: 5rem;
+    border-radius: 50%;
+    margin-bottom: 5px;
+  }
+  .details {
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+  }
+  .bikeNum {
+    font-size: xx-large;
+    opacity: 0.7;
+  }
+  .driverDetails {
+    font-size: x-large;
+  }
+  .dropIn {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 600px) {
+    .driver {
+      width: 400px;
+    }
+    .bikeDetails {
+      width: 400px;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .driver {
+      width: 300px;
+    }
+    .bikeDetails {
+      width: 300px;
+    }
+  }
+</style>
+<body>
+  <div class="container mt-3">
+    <div class="maps">
+      <h2>This is map</h2>
+    </div>
+    <div class="driver mt-3 ms-auto me-auto">
+      <div class="arrivaltime">
+        <h4>Driver Arrives Soon</h4>
+        <span class="badge text-bg-primary"><%= details.time %></span>
+      </div>
+      <hr />
+      <div class="bikeDetails">
+        <div class="photo">
+          <img
+            src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
+            alt="" />
+          <span style="font-weight: 900"><%= details.driverData[0].name%></span>
+        </div>
+
+        <div class="details">
+          <span class="bikeNum"><%= details.driverData[0].bikeNum %></span>
+          <span><%= details.driverData[0].bikeDesc %></span>
+          <span>+91&nbsp;<%= details.driverData[0].phone %></span>
+        </div>
+      </div>
+      <hr />
+      <div class="driverDetails">
+        <span style="font-weight: 800">Drive Details</span>
+        <div class="dropIn">
+          <i class="fa-solid fa-location-dot" style="color: #e32400"></i>
+          <span>Destination: </span>&nbsp;
+          <span style="font-weight: 550"><%= details.dropIn %></span>
+          <br />
+          <i class="fa-solid fa-money-bills" style="color: #669c35"></i>
+          <span>Price: </span>&nbsp;
+          <span style="font-weight: 550">&#8377;<%= details.price %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
