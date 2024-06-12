@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const validateOrder = require("../middlewares/validateOrder");
 const Order = require("../models/Orders");
+const BookedOrder = require("../models/BookedOrders");
+const { restrictTo, validateOrder } = require("../middleware");
 
-async function deleteBooking(userID, time) {
+async function deleteBooking(req, res, userID, time) {
   let data = await Order.findById(userID);
   setTimeout(async () => {
     await Order.findByIdAndDelete(userID);
@@ -16,7 +17,8 @@ router.get("/", async (req, res) => {
   res.render("./bookings.ejs", { orders });
 });
 
-router.get("/new", async (req, res) => {
+//new booking get req
+router.get("/new", restrictTo(["driver"]), async (req, res) => {
   res.render("./newBooking.ejs");
 });
 
@@ -36,7 +38,7 @@ router.post("/", validateOrder, async (req, res) => {
     isBooked: false,
   }).save();
   let userID = details._id;
-  await deleteBooking(userID, parseInt(data.time));
+  await deleteBooking(req, res, userID, parseInt(data.time));
   res.redirect("/bookings");
 });
 
@@ -44,10 +46,27 @@ router.post("/", validateOrder, async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     let id = req.params.id;
-    let bookingDetails = await Order.findByIdAndUpdate(id, { isBooked: true });
-    let details = await Order.findById(id).populate("driverData");
-    console.log(details);
-    res.render("./bookingDetails.ejs", { details: details });
+    let det = await Order.findById(id);
+    console.log(det);
+    if (det.isBooked == false) {
+      let details = await Order.findByIdAndUpdate(id, { isBooked: true });
+      let bookedDetails = new BookedOrder({
+        name: details.name,
+        pickUp: details.pickUp,
+        dropIn: details.dropIn,
+        time: details.time,
+        price: details.price,
+        driverData: details.driverData[0],
+        isBooked: true,
+        _id: details._id,
+      });
+      await bookedDetails.save();
+    }
+    let bookdetails = await BookedOrder.findById(id);
+
+    bookdetails = await bookdetails.populate("driverData");
+    console.log(bookdetails, "this is booked details");
+    res.render("./bookingDetails.ejs", { details: bookdetails });
   } catch (err) {
     console.log("listing not present");
   }

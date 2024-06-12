@@ -1,0 +1,58 @@
+<style>
+  .image {
+    width: 6rem;
+    margin: 1rem;
+    border-radius: 50%;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .driver {
+    align-items: center;
+  }
+  .btn-danger {
+    margin-bottom: 1rem;
+  }
+</style>
+
+<% layout('./layout/boilerplate') -%>
+<div class="container">
+  <div class="driver">
+    <hr />
+    Profile
+    <div class="card" style="width: 18rem">
+      <img
+        class="image"
+        src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
+        alt="" />
+      <div class="card-body">
+        <p class="card-text">
+          <span style="font-weight: 900"><%= user.name%></span> <br />
+          <span>+91&nbsp;<%= user.phone %></span>
+          <span><%= user.email %></span>
+        </p>
+      </div>
+    </div>
+    <hr mb-3 />
+
+    <% if (user.role == 'driver') { %>
+    <div class="details">
+      <span class="bikeNum"><%= user.bikeNum %></span>
+      <span><%= user.bikeDesc %></span>
+    </div>
+    <% } %>
+  </div>
+  <hr />
+  <form action="/user/logOut" method="get">
+    <button type="submit" class="btn btn-danger">Log Out</button>
+  </form>
+</div>

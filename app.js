@@ -3,6 +3,8 @@ const path = require("path");
 const engine = require("ejs-mate");
 const bookingsRouter = require("./routes/bookings");
 const usersRouter = require("./routes/user");
+const { checkAuthentication } = require("./middleware");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = 8080;
@@ -11,7 +13,9 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public"))); // css, js static files
 app.set("view engine", "ejs");
 app.engine("ejs", engine);
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true })); // the post request send the data through the url(which is not visible), so we encode the url
+app.use(checkAuthentication);
 
 app.use("/bookings", bookingsRouter);
 app.use("/user", usersRouter);
@@ -25,7 +29,7 @@ app.get("/", (req, res) => {
 app.use((err, req, res, next) => {
   res.status(400);
   console.log(err);
-  res.render("./error.ejs", { error: err.details[0]?.message });
+  res.render("./error.ejs", { error: err });
 });
 
 app.listen(port, () => {

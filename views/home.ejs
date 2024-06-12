@@ -1,4 +1,218 @@
 <% layout('./layout/boilerplate') -%>
+<style>
+  p,
+  div {
+    margin: 0px;
+    padding: 0px;
+  }
+  .outercontainer {
+  }
+  .banner {
+    background-color: rgb(66, 112, 213);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+  }
+  .banner-head {
+    text-align: center;
+  }
+  #banner-heading {
+    font-family: Open Sans;
+    font-size: 3.5rem;
+    color: #ffffff;
+    font-weight: 500;
+  }
+  #banner-caption {
+    color: #ffffff;
+    opacity: 0.8;
+  }
+  .banner-foot {
+    margin-top: 4rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  #are-you {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+  }
+
+  .banner-foot button {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    font-size: 1rem;
+    padding: 1rem;
+    border-radius: 40px;
+    width: 10rem;
+  }
+  #banner-image {
+    width: 80%;
+    margin-top: 2rem;
+    border: 1px solid white;
+    padding: 0.5rem;
+  }
+
+  @media (min-width: 768px) and (max-width: 940px) {
+    .banner-foot {
+      display: none;
+    }
+    #banner-heading {
+      font-size: 2rem;
+    }
+    #banner-image {
+      margin: 0;
+    }
+  }
+  @media (max-width: 767px) {
+    .outer-banner-image {
+      width: 100%;
+    }
+  }
+  .outer-banner-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @media (max-width: 411px) {
+    #banner-heading {
+      font-size: 150%;
+    }
+    #banner-caption {
+      font-size: 90%;
+    }
+    #are-you {
+      font-size: 125%;
+    }
+    .banner-foot {
+      margin-top: 2%;
+    }
+    .banner-foot button {
+      font-size: 90%;
+      padding: 2.5%;
+      margin-bottom: 2%;
+    }
+    #banner-image {
+      margin-top: 2%;
+    }
+  }
+  .feature img {
+    width: 8rem;
+    margin: 0.5rem;
+  }
+  .features-container {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  #features-head {
+    font-weight: 800;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .features-box {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .feature {
+    width: 15rem;
+    margin: 0.25rem 0;
+  }
+  .feature h4 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-top: 0.5rem;
+  }
+  .feature p {
+    font-size: 0.8rem;
+    opacity: 0.9;
+  }
+  .works {
+    margin: 3rem 0;
+    text-align: center;
+  }
+  .works h4 {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+</style>
 <body>
-  <h1>Hello this is trips page</h1>
+  <div class="outercontainer">
+    <div class="banner row">
+      <div class="col-md-6 col-sm-12">
+        <div class="banner-head">
+          <p id="banner-heading" class="shadow-lg">
+            Book Your Ride: <br />
+            Easy, Fast, Reliable
+          </p>
+          <p id="banner-caption">
+            Your Journey, Our Priority: Simplifying Travel, One Click at a Time
+          </p>
+        </div>
+        <div class="banner-foot">
+          <p id="are-you">Are You ?</p>
+          <div class="buttons">
+            <button class="badge text-bg-light">
+              <a href="user/register/driver">Rider</a>
+            </button>
+            <button class="badge text-bg-dark">
+              <a href="/user/register/user">Customer</a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 outer-banner-image">
+        <img
+          class="shadow-lg"
+          src="https://inc42.com/wp-content/uploads/2019/12/shutterstock_1526149508-1-1.jpg"
+          id="banner-image"
+          alt="a bike taxi image" />
+      </div>
+    </div>
+    <div class="features-container border-bottom">
+      <h3 id="features-head">Features</h3>
+      <div class="features-box">
+        <div class="feature">
+          <img
+            src="https://cdni.iconscout.com/illustration/premium/thumb/man-schedule-life-and-flexible-work-time-8177563-6576945.png"
+            alt=""
+            srcset="" />
+          <h4 class="shadow-lg">Flexible Booking Options</h4>
+          <p>
+            Book rides immediately or schedule them for later as per your
+            convenience
+          </p>
+        </div>
+        <div class="feature">
+          <img
+            src="https://cdni.iconscout.com/illustration/free/thumb/free-bike-service-6581021-5579363.png?f=webp"
+            alt=""
+            srcset="" />
+          <h4 class="shadow-lg">Quick Ride</h4>
+          <p>
+            Your Smart Solution for Fast Commutes, Even in Traffic and Rush
+            Hours
+          </p>
+        </div>
+        <div class="feature">
+          <img
+            src="https://cdni.iconscout.com/illustration/premium/thumb/shopping-review-3949822-3277283.png?f=webp"
+            alt=""
+            srcset="" />
+          <h4 class="shadow-lg">Rating and Reviews</h4>
+          <p>
+            Feature to rate and review rides and drivers for quality assurance.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="works">
+      <h4>How it works</h4>
+      <img src="" alt="" />
+      <h5>
+        Making it easy and enjoyable for riders to connect and share bike rides
+        efficiently
+      </h5>
+    </div>
+  </div>
 </body>

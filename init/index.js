@@ -16,7 +16,6 @@ async function initDb() {
   let changedTrips = trips.map((obj) => {
     obj.driverData = "6655a827fc78f72941d5feb5";
     obj.time = 2;
-    sas;
     obj.isBooked = false;
     return obj;
   });
