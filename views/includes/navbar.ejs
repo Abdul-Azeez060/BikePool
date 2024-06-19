@@ -26,7 +26,7 @@
 
 <div class="navbar navbar-expand-md sticky-top border-bottom">
   <div class="container-fluid ms-1 me-1">
-    <div>
+    <div class="ms-3">
       <a class="navbar-brand" href="#"><span id="highlight">bike</span>Pool</a>
     </div>
     <button
@@ -49,11 +49,12 @@
         <li class="nav-item ms-3">
           <a href="/bookings/new" class="nav-link headlink">Drive</a>
         </li>
+        <% } %> <% if (currUser) { %>
+        <li class="nav-item ms-3">
+          <a href="/bookings/myorders" class="nav-link headlink">My Bookings</a>
+        </li>
         <% } %>
 
-        <li class="nav-item ms-3">
-          <a href="#" class="nav-link headlink">About Us</a>
-        </li>
         <li class="nav-item badge text-bg-primary login ms-3 me-3">
           <% if (!currUser) { %>
           <a href="/user/login" class="nav-link" style="color: white">

@@ -31,11 +31,13 @@ router.get("/login", async (req, res) => {
 router.get("/logOut", async (req, res) => {
   console.log("logout");
   res.clearCookie("uid");
+  req.flash("success", "Log Out Successfull");
   res.redirect("/");
 });
 
 router.get("/profile", restrictTo(["driver", "user"]), async (req, res) => {
-  res.render("./profile.ejs", { user: req.user });
+  console.log(res.locals.currUser);
+  res.render("./profile.ejs", { user: res.locals.currUser });
 });
 
 router.post("/login/successfull", handlelogin);

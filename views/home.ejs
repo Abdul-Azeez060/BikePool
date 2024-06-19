@@ -47,7 +47,6 @@
   }
   #banner-image {
     width: 80%;
-    margin-top: 2rem;
     border: 1px solid white;
     padding: 0.5rem;
   }
@@ -67,12 +66,65 @@
     .outer-banner-image {
       width: 100%;
     }
+    #banner-image {
+      margin-top: 2rem;
+    }
   }
   .outer-banner-image {
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
+  .feature img {
+    width: 8rem;
+    margin: 0.5rem;
+  }
+  .features-container {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  #features-head {
+    font-weight: 800;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .features-box {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+  .feature {
+    width: 15rem;
+    margin: 0.25rem 0.5rem;
+  }
+  .feature h4 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-top: 0.5rem;
+    min-width: max-content;
+    padding: 0.25rem;
+  }
+  .feature p {
+    font-size: 0.8rem;
+    opacity: 0.9;
+  }
+  .works {
+    margin: 3rem 0.25rem;
+    text-align: center;
+    padding: 1rem;
+  }
+  .works h4 {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+
+  .badge a {
+    text-decoration: none;
+  }
+
   @media (max-width: 411px) {
     #banner-heading {
       font-size: 150%;
@@ -94,46 +146,12 @@
     #banner-image {
       margin-top: 2%;
     }
-  }
-  .feature img {
-    width: 8rem;
-    margin: 0.5rem;
-  }
-  .features-container {
-    text-align: center;
-    margin: 2rem 0;
-  }
-  #features-head {
-    font-weight: 800;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  .features-box {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .feature {
-    width: 15rem;
-    margin: 0.25rem 0;
-  }
-  .feature h4 {
-    font-size: 1.25rem;
-    font-weight: 800;
-    margin-top: 0.5rem;
-  }
-  .feature p {
-    font-size: 0.8rem;
-    opacity: 0.9;
-  }
-  .works {
-    margin: 3rem 0;
-    text-align: center;
-  }
-  .works h4 {
-    font-size: 2rem;
-    font-weight: 800;
+    #features-head {
+      font-size: 120%;
+    }
+    .feature h4 {
+      font-size: 100%;
+    }
   }
 </style>
 <body>
@@ -149,6 +167,7 @@
             Your Journey, Our Priority: Simplifying Travel, One Click at a Time
           </p>
         </div>
+        <% if (!currUser) { %>
         <div class="banner-foot">
           <p id="are-you">Are You ?</p>
           <div class="buttons">
@@ -160,6 +179,7 @@
             </button>
           </div>
         </div>
+        <% } %>
       </div>
       <div class="col-6 outer-banner-image">
         <img
@@ -207,7 +227,7 @@
       </div>
     </div>
     <div class="works">
-      <h4>How it works</h4>
+      <h4 id="features-head">How it works</h4>
       <img src="" alt="" />
       <h5>
         Making it easy and enjoyable for riders to connect and share bike rides

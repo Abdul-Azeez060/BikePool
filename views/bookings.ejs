@@ -41,17 +41,17 @@
     justify-content: center;
   }
   .box {
-    margin: 4rem;
+    margin: 1rem;
     padding: 1rem;
     width: 80vw;
   }
 
   .item p {
-    width: 8rem;
-    margin: 0px;
+    margin-right: 0.5rem;
+    padding: 0.5rem;
   }
   .address {
-    font-size: 1.4rem;
+    font-size: 120%;
   }
 
   .pickUp {
@@ -67,14 +67,74 @@
     margin-bottom: 0rem;
   }
 
-  @media (max-width) {
+  @media (max-width: 1020px) {
+    .address {
+      font-size: 100%;
+    }
+    .profile1 img {
+      width: 25%;
+    }
+    #name {
+      font-size: 85%;
+    }
+  }
+  @media (max-width: 860px) {
+    .address {
+      font-size: 80%;
+    }
+    #name {
+      font-size: 80%;
+    }
+    #startTime,
+    #colorDropIn,
+    #colorPickUp {
+      font-size: 80%;
+    }
+  }
+  @media (max-width: 500px) {
+    .order {
+      flex-direction: column;
+    }
+    .item {
+      flex-wrap: wrap;
+    }
+    .profile1 img {
+      width: 100%;
+    }
+    .address {
+      font-size: 80%;
+    }
+    .item p {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1%;
+      padding: 0;
+    }
+    .order {
+      max-height: 25rem;
+    }
+    #name {
+      font-size: 70%;
+      width: max-content;
+      display: inline-block;
+    }
+    .buttons a {
+      font-size: 60%;
+    }
+    .profile1 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
 </style>
 <body>
   <div class="box mt-3 ms-auto me-auto">
     <% for(let order of orders) { %> <% if (order.isBooked == false) { %>
     <div class="order ms-auto me-auto">
-      <div class="profile1">
+      <div class="profile1 col-4">
         <img
           src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
           alt="profile pic" />
@@ -97,11 +157,13 @@
           <span class="address"><%= order.dropIn %>&nbsp;</span>
         </p>
       </div>
+      <% if (currUser && currUser.role == 'user') { %>
       <div class="buttons">
         <a href="/bookings/<%= order._id %>" class="btn btn-outline-success"
           >Book Now</a
         >
       </div>
+      <% } %>
     </div>
     <% } %> <% } %>
   </div>

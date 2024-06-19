@@ -1,5 +1,8 @@
 const { getUser } = require("./service/auth");
 const OrderSchema = require("./Schema");
+const Driver = require("./models/Driver");
+const User = require("./models/User");
+const BookedOrder = require("./models/BookedOrders");
 
 function validateOrder(req, res, next) {
   console.log("this is the validation");
@@ -18,16 +21,25 @@ function checkAuthentication(req, res, next) {
     return next();
   }
   let { data: user } = getUser(token);
-  req.user = user;
   res.locals.currUser = user;
   next();
 }
+
+async function cancelRide(req, res, next) {
+  let { orderId, userId, driverId } = req.body;
+  await Driver.findByIdAndUpdate(driverId, { orderId: null });
+  await User.findByIdAndUpdate(userId, { orderId: null });
+  await BookedOrder.findByIdAndDelete(id);
+  next();
+}
+
 function restrictTo(roles) {
   return function (req, res, next) {
-    if (!req.user) res.redirect("/user/login");
-    if (!roles.includes(req.user.role)) res.send("Authorization denied");
+    if (!res.locals.currUser) res.redirect("/user/login");
+    if (!roles.includes(res.locals.currUser.role))
+      res.send("Authorization denied");
     return next();
   };
 }
 
-module.exports = { validateOrder, checkAuthentication, restrictTo };
+module.exports = { cancelRide, validateOrder, checkAuthentication, restrictTo };

@@ -1,0 +1,44 @@
+<style>
+  .icon-img{
+    display: inline-block
+  }
+  .alert{
+    min-width: 15rem;
+  }
+  .flash-outer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+<div class="flash-outer">
+<% if (success && success.length) { %>
+<div
+  class="alert alert-success alert-dismissible fade col-6 show mt-3"
+  role="alert">
+  <div class="icon-img">
+    <i class="fa-solid fa-square-check fa-lg" style="color: #24993b"></i>
+  </div>
+  <%= success %>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"></button>
+</div>
+<% } %> <% if (error && error.length) { %>
+<div
+  class="alert alert-danger alert-dismissible fade show col-6  mt-3"
+  role="alert">
+  <div class="icon-img  >
+    <i class="fa-solid fa-square-xmark" style="color: #e9512b"></i>
+  </div>
+  <%= error %>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"></button>
+</div>
+<% } %>
+</div>

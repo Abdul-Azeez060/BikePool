@@ -1,12 +1,5 @@
 const { required, string } = require("joi");
 const mongoose = require("mongoose");
-main()
-  .then(() => console.log("successfull connected"))
-  .catch((err) => console.log(err));
-
-async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/BikePool");
-}
 
 const UserSchema = new mongoose.Schema({
   //creating schema, template, rules for the db
@@ -31,6 +24,7 @@ const UserSchema = new mongoose.Schema({
     default: "user",
     required: true,
   },
+  orderId: { type: mongoose.Schema.Types.ObjectId, ref: "BookedOrder" },
 });
 
 const User = mongoose.model("User", UserSchema);

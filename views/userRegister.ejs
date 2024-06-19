@@ -3,14 +3,19 @@
   .container {
     background-color: whitesmoke;
     width: 60vw;
+    min-width: 18rem;
+    margin-bottom: 2rem;
+  }
+  .user {
+    padding: 0.5rem;
   }
 </style>
 <body>
   <div class="container p-3 mt-3">
     <h3>Register for new user</h3>
     <form
-      action="/user/successfull"
-      class="needs-validation"
+      action="/user/user/successfull"
+      class="needs-validation user"
       method="post"
       novalidate>
       <div class="mb-2">
@@ -31,6 +36,7 @@
           type="number"
           id="phone"
           name="phone"
+          value="7989332944"
           class="form-control"
           required />
         <div class="pe_signin_button" data-client-id="11494476566363047393">

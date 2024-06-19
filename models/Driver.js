@@ -1,12 +1,5 @@
 const mongoose = require("mongoose");
 const { type } = require("../Schema");
-main()
-  .then(() => console.log("successfull connected to the database"))
-  .catch((err) => console.log(err));
-
-async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/BikePool");
-}
 
 const DriverSchema = new mongoose.Schema({
   //creating schema, template, rules for the db
@@ -28,6 +21,7 @@ const DriverSchema = new mongoose.Schema({
   bikeNum: {
     type: String,
     included: true,
+    unique: true,
   },
   bikeDesc: {
     type: String,
@@ -38,6 +32,7 @@ const DriverSchema = new mongoose.Schema({
     default: "driver",
     required: true,
   },
+  orderId: { type: mongoose.Schema.Types.ObjectId, ref: "BookedOrder" },
 });
 
 const Driver = mongoose.model("Driver", DriverSchema);

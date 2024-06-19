@@ -5,21 +5,23 @@ const { setUser } = require("../service/auth");
 async function handleDriverSignUp(req, res) {
   let data = req.body;
   console.log(data);
-  new Driver(data)
-    .save()
-    .then(() => console.log(data, "added successfull"))
-    .catch((err) => console.log(err));
-  res.send("driver successfully reigsterd");
+  const insertedData = await new Driver(data).save();
+  console.log(insertedData);
+  const token = setUser(insertedData);
+  res.cookie("uid", token);
+  req.flash("success", "Welcome to BikePool");
+  res.redirect("/");
 }
 
 async function handleUserSignUp(req, res) {
   let data = req.body;
   console.log(data);
-  new User(data)
-    .save()
-    .then(() => console.log(data, "added successfull"))
-    .catch((err) => console.log(err));
-  res.send("user successfully registered");
+  const insertedData = await new User(data).save();
+
+  const token = setUser(insertedData);
+  res.cookie("uid", token);
+  req.flash("success", "Welcome to BikePool");
+  res.redirect("/");
 }
 
 async function handlelogin(req, res) {
@@ -34,10 +36,12 @@ async function handlelogin(req, res) {
   console.log(data);
   if (!data) {
     console.log("invalid user");
+    req.flash("error", "Invalid user");
     return res.redirect("/user/login");
   }
   const token = setUser(data);
   res.cookie("uid", token);
+  req.flash("success", "Welcome Back");
   res.redirect("/bookings");
 }
 

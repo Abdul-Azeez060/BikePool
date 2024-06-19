@@ -1,13 +1,6 @@
 const User = require("./Driver");
 
 const mongoose = require("mongoose");
-main()
-  .then(() => console.log("successfull connected"))
-  .catch((err) => console.log(err));
-
-async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/BikePool");
-}
 
 const OrderSchema = new mongoose.Schema({
   //creating schema, template, rules for the db
@@ -36,6 +29,7 @@ const OrderSchema = new mongoose.Schema({
     type: Boolean,
   },
   driverData: [{ type: mongoose.Schema.Types.ObjectId, ref: "Driver" }],
+  userData: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 const Order = mongoose.model("Order", OrderSchema); // Order is the model (class) which u have to make instances

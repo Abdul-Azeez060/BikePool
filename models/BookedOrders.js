@@ -35,7 +35,8 @@ const BookedOrderSchema = new mongoose.Schema({
   isBooked: {
     type: Boolean,
   },
-  driverData: [{ type: mongoose.Schema.Types.ObjectId, ref: "Driver" }],
+  driverData: { type: mongoose.Schema.Types.ObjectId, ref: "Driver" },
+  userData: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 const BookedOrder = mongoose.model("BookedOrder", BookedOrderSchema); // Order is the model (class) which u have to make instances

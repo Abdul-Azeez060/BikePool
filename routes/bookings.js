@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../models/Orders");
 const BookedOrder = require("../models/BookedOrders");
-const { restrictTo, validateOrder } = require("../middleware");
+const { restrictTo, validateOrder, cancelRide } = require("../middleware");
+const Driver = require("../models/Driver");
+const User = require("../models/User");
 
 async function deleteBooking(req, res, userID, time) {
   let data = await Order.findById(userID);
@@ -29,44 +31,76 @@ router.post("/", validateOrder, async (req, res) => {
     new Date().getTime() + parseInt(data.time) * 60 * 1000
   ).toLocaleTimeString();
   let details = await Order({
-    name: "Abdul Azeez",
+    name: res.locals.currUser.name,
     pickUp: data.pickUp,
     dropIn: data.dropIn,
     time: t,
     price: data.price,
-    driverData: "6655a827fc78f72941d5feb5",
+    driverData: res.locals.currUser._id,
     isBooked: false,
   }).save();
-  let userID = details._id;
-  await deleteBooking(req, res, userID, parseInt(data.time));
-  res.redirect("/bookings");
+  let orderId = details._id;
+
+  const currUserData = await Driver.findByIdAndUpdate(res.locals.currUser._id, {
+    orderId: orderId,
+  });
+  console.log(currUserData, "this is the driver users currUser");
+  await deleteBooking(req, res, orderId, parseInt(data.time));
+  res.redirect("./bookings");
+});
+router.get("/myorders", async (req, res) => {
+  let id = res.locals.currUser._id;
+  console.log("this is the id", id);
+  let details = null;
+  if (res.locals.currUser.role == "driver") {
+    details = await Driver.findById(id).populate({
+      path: "orderId",
+      populate: { path: "userData" }, // Nested population of the user field inside driverData
+    });
+  } else {
+    details = await User.findById(id).populate({
+      path: "orderId",
+      populate: { path: "driverData" },
+    });
+  }
+  console.log(details, "this is the details in the order");
+  res.render("./bookingDetails", { details: details.orderId });
+});
+
+//cancel ride
+router.post("/cancelride", cancelRide, async (req, res) => {
+  let { orderId, userId, driverId } = req.body;
+
+  await Order.findByIdAndUpdate(id, { isBooked: false });
 });
 
 // booking details
 router.get("/:id", async (req, res) => {
+  console.log("this is get req to :id");
   try {
     let id = req.params.id;
     let det = await Order.findById(id);
-    console.log(det);
     if (det.isBooked == false) {
       let details = await Order.findByIdAndUpdate(id, { isBooked: true });
+      console.log(details);
+      console.log(details.driverData[0].toString());
       let bookedDetails = new BookedOrder({
         name: details.name,
         pickUp: details.pickUp,
         dropIn: details.dropIn,
         time: details.time,
         price: details.price,
-        driverData: details.driverData[0],
+        driverData: details.driverData[0].toString(),
         isBooked: true,
         _id: details._id,
+        userData: res.locals.currUser._id,
       });
       await bookedDetails.save();
     }
-    let bookdetails = await BookedOrder.findById(id);
-
-    bookdetails = await bookdetails.populate("driverData");
-    console.log(bookdetails, "this is booked details");
-    res.render("./bookingDetails.ejs", { details: bookdetails });
+    const currUserData = await User.findByIdAndUpdate(res.locals.currUser._id, {
+      orderId: id,
+    });
+    res.redirect("/bookings/myorders");
   } catch (err) {
     console.log("listing not present");
   }

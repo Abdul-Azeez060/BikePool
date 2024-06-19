@@ -129,11 +129,17 @@
     .cancel-ride {
       font-size: 80%;
     }
+    .photo {
+      align-items: center;
+    }
   }
 </style>
-
+<% if(!details){ %>
+<h4>You don't have any bookings currently</h4>
+<p>Reload this page</p>
+<% } %> <% if (details && currUser.role == 'user') { %>
 <div class="outer-container mt-3">
-  <div class="driver">
+  <div class="user driver">
     <div class="arrivaltime">
       <h4>Driver Arrives At</h4>
       <span class="badge text-bg-primary"><%= details.time %></span>
@@ -144,13 +150,13 @@
         <img
           src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
           alt="" />
-        <span style="font-weight: 900"><%= details.driverData[0].name%></span>
+        <span style="font-weight: 900"><%= details.driverData.name%></span>
       </div>
 
       <div class="details">
-        <span class="bikeNum"><%= details.driverData[0].bikeNum %></span>
-        <span><%= details.driverData[0].bikeDesc %></span>
-        <span>+91&nbsp;<%= details.driverData[0].phone %></span>
+        <span class="bikeNum"><%= details.driverData.bikeNum %></span>
+        <span><%= details.driverData.bikeDesc %></span>
+        <span>+91&nbsp;<%= details.driverData.phone %></span>
       </div>
     </div>
     <hr />
@@ -189,6 +195,68 @@
         <button class="badge text-bg-success success">Submit</button>
       </fieldset>
     </form>
-    <button class="badge text-bg-danger cancel-ride">Cancel Ride</button>
+    <form action="/bookings/cancelride" method="post">
+      <input
+        type="text"
+        style="display: none"
+        value="<%= details._id %>"
+        name="order-id" />
+      <input
+        type="text"
+        style="display: none"
+        value="<%= details.userData %>"
+        name="userId" />
+      <input
+        type="text"
+        style="display: none"
+        value="<%= details.driverData._id %>"
+        name="driverId" />
+      <button class="badge text-bg-danger cancel-ride" type="submit">
+        Cancel Ride
+      </button>
+    </form>
   </div>
 </div>
+
+<% } %> <% if (details && currUser.role == 'driver') { %>
+<div class="outer-container mt-3">
+  <div class="driver">
+    <div class="arrivaltime">
+      <h4>Ride At</h4>
+      <span class="badge text-bg-primary"><%= details.time %></span>
+    </div>
+    <hr />
+    <div class="bikeDetails">
+      <div class="photo">
+        <img
+          src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
+          alt="" />
+        <span style="font-weight: 900"><%= details.userData.name%></span>
+      </div>
+
+      <div class="details">
+        <span class="bikeNum"> +91&nbsp;<%= details.userData.phone %></span>
+        <span><%= details.userData.email %></span>
+      </div>
+    </div>
+    <hr />
+    <div class="driverDetails">
+      <span style="font-weight: 800">Drive Details</span>
+      <div class="dropIn">
+        <i class="fa-solid fa-location-dot" style="color: #e32400"></i>
+        <span>PickUp: </span>&nbsp;
+        <span style="font-weight: 550"><%= details.pickUp %></span>
+        <br />
+        <i class="fa-solid fa-location-dot" style="color: #e32400"></i>
+        <span>Destination: </span>&nbsp;
+        <span style="font-weight: 550"><%= details.dropIn %></span>
+        <br />
+        <i class="fa-solid fa-money-bills" style="color: #669c35"></i>
+        <span>Price: </span>&nbsp;
+        <span style="font-weight: 550">&#8377;<%= details.price %></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% } %>
