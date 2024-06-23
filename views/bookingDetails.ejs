@@ -79,13 +79,17 @@
     font-size: 1.5rem;
     padding: 0.5rem 1rem;
     border-radius: 50px;
-    margin-top: 5rem;
+    margin-top: 3rem;
   }
   .arrivaltime .badge {
     margin-left: 0.25rem;
   }
   .success {
-    margin: 0.5rem;
+    margin: 1.5rem;
+    font-size: 1.3rem;
+  }
+  #star-field {
+    text-align: center;
   }
 
   @media (max-width: 620px) {
@@ -135,8 +139,19 @@
   }
 </style>
 <% if(!details){ %>
-<h4>You don't have any bookings currently</h4>
-<p>Reload this page</p>
+<div class="outer-container mt-3">
+  <div class="card" style="width: 18rem">
+    <img
+      src="https://i.pinimg.com/474x/95/db/7d/95db7d021063bc34b34a0dba41d28844.jpg"
+      class="card-img-top"
+      alt="..." />
+    <div class="card-body">
+      <h4 class="card-title">You don't have any bookings currently</h4>
+      <p>Reload this page</p>
+    </div>
+  </div>
+</div>
+
 <% } %> <% if (details && currUser.role == 'user') { %>
 <div class="outer-container mt-3">
   <div class="user driver">
@@ -178,9 +193,12 @@
     </div>
   </div>
   <div class="rating">
-    <form action="">
-      <fieldset class="starability-slot">
-        <p>Please rate your experience</p>
+    <p>Please rate your experience</p>
+    <form
+      action="/user/rating/<%= details.driverData._id %>"
+      class="star-form"
+      method="POST">
+      <fieldset class="starability-slot" id="star-field">
         <input type="radio" id="first-rate1" name="rating" value="1" />
         <label for="first-rate1" title="Terrible">1 star</label>
         <input type="radio" id="first-rate2" name="rating" value="2" />
@@ -200,7 +218,7 @@
         type="text"
         style="display: none"
         value="<%= details._id %>"
-        name="order-id" />
+        name="orderId" />
       <input
         type="text"
         style="display: none"

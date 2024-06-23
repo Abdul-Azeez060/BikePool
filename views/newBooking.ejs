@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    margin-top: 2rem;
   }
 
   .bike {
@@ -29,14 +30,14 @@
     }
   }
 
-  @media (max-height: 712px) {
+  @media (max-width: 712px) {
     .bike {
       display: none;
     }
     .container {
       margin-top: 2rem;
       padding: 20px;
-      width: 20rem;
+      min-width: 20rem;
     }
   }
 </style>
@@ -53,6 +54,7 @@
           class="form-control"
           name="booking[pickUp]"
           placeholder="Starting At"
+          maxlength="40"
           required />
         <div class="invalid-feedback">Please choose Pick Up Point.</div>
       </div>
@@ -64,6 +66,7 @@
           class="form-control"
           name="booking[dropIn]"
           placeholder="Destination"
+          maxlength="40"
           required />
         <div class="invalid-feedback">Please choose a Drop In Point.</div>
       </div>

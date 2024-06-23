@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { type } = require("../Schema");
+const { required } = require("joi");
 
 const DriverSchema = new mongoose.Schema({
   //creating schema, template, rules for the db
@@ -31,6 +32,10 @@ const DriverSchema = new mongoose.Schema({
     type: String,
     default: "driver",
     required: true,
+  },
+  rating: {
+    type: Number,
+    default: 5,
   },
   orderId: { type: mongoose.Schema.Types.ObjectId, ref: "BookedOrder" },
 });

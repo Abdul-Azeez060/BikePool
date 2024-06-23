@@ -3,6 +3,7 @@ const OrderSchema = require("./Schema");
 const Driver = require("./models/Driver");
 const User = require("./models/User");
 const BookedOrder = require("./models/BookedOrders");
+const { ExpressError } = require("./utils/ExpressError");
 
 function validateOrder(req, res, next) {
   console.log("this is the validation");
@@ -29,16 +30,17 @@ async function cancelRide(req, res, next) {
   let { orderId, userId, driverId } = req.body;
   await Driver.findByIdAndUpdate(driverId, { orderId: null });
   await User.findByIdAndUpdate(userId, { orderId: null });
-  await BookedOrder.findByIdAndDelete(id);
+  await BookedOrder.findByIdAndDelete(orderId);
   next();
 }
 
 function restrictTo(roles) {
   return function (req, res, next) {
     if (!res.locals.currUser) res.redirect("/user/login");
-    if (!roles.includes(res.locals.currUser.role))
-      res.send("Authorization denied");
-    return next();
+    if (!roles.includes(res.locals.currUser.role)) {
+      res.send("Access Denied");
+    }
+    next();
   };
 }
 

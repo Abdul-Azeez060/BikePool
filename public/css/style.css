@@ -4,5 +4,8 @@
 
 body {
   background-color: rgb(234, 233, 237);
-  height: max-content;
+}
+
+.body-container {
+  min-height: 50vh;
 }

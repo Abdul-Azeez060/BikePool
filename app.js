@@ -57,9 +57,9 @@ app.get("/", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(400);
-  console.log(err);
-  res.render("./error.ejs", { error: err });
+  let { status = 500, message = "Something went wrong" } = err;
+  res.status(status);
+  res.render("./error.ejs", { error: message });
 });
 
 app.listen(port, () => {

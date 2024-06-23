@@ -4,8 +4,10 @@ const {
   handleDriverSignUp,
   handleUserSignUp,
   handlelogin,
+  handleRating,
 } = require("../controllers/user");
 const { restrictTo } = require("../middleware");
+const { ExpressError } = require("../utils/ExpressError");
 
 // new user register
 router.get("/register", (req, res) => {
@@ -21,7 +23,11 @@ router.get("/register/driver", (req, res) => {
 });
 
 router.get("/register/user", (req, res) => {
-  res.render("./userRegister.ejs");
+  try {
+    res.render("./userRegister.ejs");
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.get("/login", async (req, res) => {
@@ -39,6 +45,8 @@ router.get("/profile", restrictTo(["driver", "user"]), async (req, res) => {
   console.log(res.locals.currUser);
   res.render("./profile.ejs", { user: res.locals.currUser });
 });
+
+router.post("/rating/:id", handleRating);
 
 router.post("/login/successfull", handlelogin);
 module.exports = router;
