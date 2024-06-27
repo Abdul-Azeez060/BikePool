@@ -25,6 +25,7 @@ async function handleMyOrders(req, res, next) {
         populate: { path: "driverData" },
       });
     }
+
     res.render("./bookingDetails", { details: details.orderId });
   } catch (err) {
     next(err);
@@ -34,7 +35,7 @@ async function handleMyOrders(req, res, next) {
 async function handleCancelRide(req, res) {
   try {
     let { orderId } = req.body;
-    await Order.findByIdAndUpdate(orderId, { isBooked: false });
+    const data = await Order.findByIdAndUpdate(orderId, { isBooked: false });
     req.flash("success", "Ride Canceled");
     res.redirect("/");
   } catch (err) {
@@ -47,6 +48,10 @@ async function handleBookingDetails(req, res, next) {
   try {
     let id = req.params.id;
     let details = await Order.findByIdAndUpdate(id, { isBooked: true });
+    if (!details) {
+      req.flash("error", "Booking not found");
+      res.redirect("/bookings");
+    }
     console.log(details);
     let bookedDetails = new BookedOrder({
       name: details.name,
@@ -61,9 +66,16 @@ async function handleBookingDetails(req, res, next) {
     });
 
     await bookedDetails.save();
-    await User.findByIdAndUpdate(res.locals.currUser._id, {
-      orderId: id,
-    });
+    try {
+      await User.findByIdAndUpdate(res.locals.currUser._id, {
+        orderId: id,
+      });
+      await Driver.findOneAndUpdate(details.driverData[0], { orderId: id });
+    } catch (err) {
+      req.flash("error", "Not logged in");
+      res.redirect("/user/login");
+    }
+
     req.flash("success", "Ride Booked");
     res.redirect("/bookings/myorders");
   } catch (err) {
@@ -92,6 +104,7 @@ async function handleNewBooking(req, res) {
       orderId: orderId,
     });
     await deleteBooking(req, res, orderId, parseInt(data.time));
+    req.flash("success", "Ride Added Successfully");
     res.redirect("./bookings");
   } catch (err) {
     next(err);
@@ -111,6 +124,18 @@ async function handleBooking(req, res, next) {
   }
 }
 
+async function handleCompleteRide(req, res, next) {
+  let { orderId } = req.body;
+  console.log("compleete button clicked");
+  try {
+    await Order.findOneAndDelete(orderId);
+    req.flash("success", "Ride Complete");
+    res.redirect("/");
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   handleBooking,
   handleMyOrders,
@@ -118,4 +143,5 @@ module.exports = {
   handleBookingDetails,
   handleNewBooking,
   addNewBooking,
+  handleCompleteRide,
 };

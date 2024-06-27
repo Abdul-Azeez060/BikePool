@@ -10,10 +10,8 @@ const {
   handleNewBooking,
   addNewBooking,
   handleBooking,
+  handleCompleteRide,
 } = require("../controllers/bookings");
-
-
-
 
 //bookings page
 router.get("/", handleBooking);
@@ -22,13 +20,16 @@ router.get("/", handleBooking);
 router.get("/new", restrictTo(["driver"]), addNewBooking);
 
 // post req to bookings
-router.post("/", validateOrder, handleNewBooking);
-router.get("/myorders", handleMyOrders);
+router.post("/", restrictTo(["driver"]), validateOrder, handleNewBooking);
+router.get("/myorders", restrictTo(["driver", "user"]), handleMyOrders);
 
 //cancel ride
-router.post("/cancelride", cancelRide, handleCancelRide);
+router.post("/cancelride", restrictTo(["user"]), cancelRide, handleCancelRide);
+
+//complete ride
+router.post("/success", restrictTo(["driver"]), cancelRide, handleCompleteRide);
 
 // booking details
-router.get("/:id", handleBookingDetails);
+router.get("/:id", restrictTo("user"), handleBookingDetails);
 
 module.exports = router;

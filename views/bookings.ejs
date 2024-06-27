@@ -12,14 +12,15 @@
     border-radius: 40px;
     background-color: white;
     align-items: center;
+    border: 1px solid rgb(116, 131, 220);
   }
 
   .item {
     display: flex;
     justify-content: space-evenly;
-    width: 50vw;
+
     margin-bottom: 1rem;
-    height: 5rem;
+
     padding: 1rem;
   }
 
@@ -67,47 +68,68 @@
     margin-bottom: 0rem;
   }
 
+  .profile-background {
+    background-color: rgb(244, 244, 250);
+  }
+  .profile1 {
+    margin: 1rem;
+  }
+
+  @media (min-width: 1200px) {
+    .buttons {
+      margin-left: auto;
+    }
+  }
   @media (max-width: 1020px) {
     .address {
-      font-size: 100%;
+      font-size: 90%;
     }
     .profile1 img {
-      width: 25%;
+      width: 50%;
     }
     #name {
       font-size: 85%;
     }
   }
-  @media (max-width: 860px) {
+  @media (min-width: 501px) and (max-width: 860px) {
     .address {
       font-size: 80%;
     }
+    .profile1 img {
+      width: 80%;
+    }
     #name {
       font-size: 80%;
-      width: 60%;
+      max-width: 150%;
     }
     #startTime,
     #colorDropIn,
     #colorPickUp {
       font-size: 80%;
     }
+    .profile-background {
+      width: 40%;
+    }
   }
 
-  @media (min-width: 400px) {
-  }
   @media (max-width: 500px) {
     .order {
       flex-direction: column;
+      min-width: 260px;
     }
+
     .item {
       flex-wrap: wrap;
+      width: 100%;
     }
     .profile1 img {
       width: 100%;
     }
     .address {
-      font-size: 80%;
+      font-size: 70%;
       text-align: end;
+      width: 55%;
+      opacity: 0.8;
     }
     .item p {
       width: 100%;
@@ -126,7 +148,7 @@
     }
     .buttons a {
       font-size: 60%;
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
     .profile1 {
       display: flex;
@@ -134,18 +156,32 @@
       justify-content: center;
       align-items: center;
     }
+    .profile-background {
+      display: flex;
+      justify-content: center;
+    }
+    #startTime,
+    #colorDropIn,
+    #colorPickUp {
+      font-size: 100%;
+    }
+  }
+  .none-rating {
+    display: none;
   }
 </style>
 <body>
   <div class="box mt-3 ms-auto me-auto">
     <% for(let order of orders) { %> <% if (order.isBooked == false) { %>
     <div class="order ms-auto me-auto">
-      <div class="profile1 col-4">
-        <img
-          src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
-          alt="profile pic" />
-        <p id="name">Name: <%= order.name %>&nbsp;</p>
-        <p id="name">Price: &#8377;<%= order.price %>&nbsp;</p>
+      <div class="profile-background">
+        <div class="profile1 col-4">
+          <img
+            src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
+            alt="profile pic" />
+          <p id="name">Name: <%= order.name %>&nbsp;</p>
+          <p id="name">Price: &#8377;<%= order.price %>&nbsp;</p>
+        </div>
       </div>
       <div class="item">
         <p>
@@ -163,19 +199,22 @@
           <span class="address"><%= order.dropIn %>&nbsp;</span>
         </p>
       </div>
-      <% if (currUser && currUser.role == 'user') { %>
+
       <div class="buttons">
+        <% if (currUser && currUser.role == 'user') { %>
         <a href="/bookings/<%= order._id %>" class="btn btn-outline-success"
           >Book Now</a
         >
+        <% } %> <% if (currUser && currUser.role == 'driver') { %>
+        <form action="/success" method="post">
+          <button type="submit" class="btn btn-outline-danger">
+            Cancel Ride
+          </button>
+        </form>
       </div>
       <% } %>
     </div>
     <% } %> <% } %>
   </div>
-  <script>
-    // setTimeout(() => {
-    //   window.location.replace(location.href);
-    // }, 12 * 1000);
-  </script>
+  <script></script>
 </body>

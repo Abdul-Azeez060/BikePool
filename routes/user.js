@@ -6,23 +6,31 @@ const {
   handlelogin,
   handleRating,
 } = require("../controllers/user");
-const { restrictTo } = require("../middleware");
+const { restrictTo, denyAccessTo } = require("../middleware");
 const { ExpressError } = require("../utils/ExpressError");
 
 // new user register
-router.get("/register", (req, res) => {
+router.get("/register", denyAccessTo(["user", "driver"]), (req, res) => {
   res.render("./register.ejs");
 });
 
-router.post("/driver/successfull", handleDriverSignUp);
+router.post(
+  "/driver/successfull",
+  denyAccessTo(["user", "driver"]),
+  handleDriverSignUp
+);
 
-router.post("/user/successfull", handleUserSignUp);
+router.post(
+  "/user/successfull",
+  denyAccessTo(["user", "driver"]),
+  handleUserSignUp
+);
 
-router.get("/register/driver", (req, res) => {
+router.get("/register/driver", denyAccessTo(["user", "driver"]), (req, res) => {
   res.render("./driverRegister.ejs");
 });
 
-router.get("/register/user", (req, res) => {
+router.get("/register/user", denyAccessTo(["user", "driver"]), (req, res) => {
   try {
     res.render("./userRegister.ejs");
   } catch (err) {
@@ -46,7 +54,7 @@ router.get("/profile", restrictTo(["driver", "user"]), async (req, res) => {
   res.render("./profile.ejs", { user: res.locals.currUser });
 });
 
-router.post("/rating/:id", handleRating);
+router.post("/rating/:id", restrictTo(["user"]), handleRating);
 
 router.post("/login/successfull", handlelogin);
 module.exports = router;

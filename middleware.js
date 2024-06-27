@@ -27,21 +27,56 @@ function checkAuthentication(req, res, next) {
 }
 
 async function cancelRide(req, res, next) {
-  let { orderId, userId, driverId } = req.body;
-  await Driver.findByIdAndUpdate(driverId, { orderId: null });
-  await User.findByIdAndUpdate(userId, { orderId: null });
-  await BookedOrder.findByIdAndDelete(orderId);
-  next();
+  try {
+    let { orderId, userId, driverId } = req.body;
+    console.log(
+      orderId,
+      "this is order id",
+      userId,
+      "this is user id",
+      driverId,
+      "this is driver id"
+    );
+    await Driver.findByIdAndUpdate(driverId, { orderId: null });
+    await User.findByIdAndUpdate(userId, { orderId: null });
+    await BookedOrder.findByIdAndDelete(orderId);
+    next();
+  } catch (err) {
+    next(new ExpressError("something went wrong"));
+  }
 }
 
-function restrictTo(roles) {
-  return function (req, res, next) {
-    if (!res.locals.currUser) res.redirect("/user/login");
-    if (!roles.includes(res.locals.currUser.role)) {
-      res.send("Access Denied");
+function denyAccessTo(roles) {
+  return (req, res, next) => {
+    if (!res.locals.currUser) {
+      return next();
+    }
+    if (roles.includes(res.locals.currUser.role)) {
+      req.flash("error", "Your already logged In");
+      return res.redirect("/bookings");
     }
     next();
   };
 }
 
-module.exports = { cancelRide, validateOrder, checkAuthentication, restrictTo };
+function restrictTo(roles) {
+  return function (req, res, next) {
+    if (!res.locals.currUser) {
+      req.flash("error", "User not logged In");
+      return res.redirect("/user/login");
+    }
+    if (!roles.includes(res.locals.currUser.role)) {
+      req.flash("error", "Your Not Authorized");
+      return res.redirect("/bookings");
+    }
+    next();
+  };
+}
+
+module.exports = {
+  cancelRide,
+  validateOrder,
+  checkAuthentication,
+  restrictTo,
+  denyAccessTo,
+};

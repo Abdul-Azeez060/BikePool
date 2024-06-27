@@ -12,7 +12,8 @@ async function handleDriverSignUp(req, res, next) {
     req.flash("success", "Welcome to BikePool");
     res.redirect("/");
   } catch (err) {
-    next(new ExpressError(400));
+    req.flash("error", "Rider already exits");
+    res.redirect("/user/login");
   }
 }
 
@@ -25,7 +26,8 @@ async function handleUserSignUp(req, res, next) {
     req.flash("success", "Welcome to BikePool");
     res.redirect("/");
   } catch (err) {
-    next(new ExpressError(400));
+    req.flash("error", "User already exits");
+    res.redirect("/user/login");
   }
 }
 

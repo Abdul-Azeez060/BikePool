@@ -1,5 +1,12 @@
 <% layout('./layout/boilerplate') -%>
 <style>
+  #no-bookings {
+    max-width: 18rem;
+    width: 70%;
+  }
+  #no-bookings .card-title {
+    font-size: 100%;
+  }
   .outer-container {
     display: flex;
     justify-content: space-evenly;
@@ -16,6 +23,8 @@
     background-color: #fff;
     padding: 1.5rem;
     margin-bottom: 2rem;
+    border: 1px solid rgb(116, 131, 220);
+    border-radius: 10px;
   }
   .arrivaltime {
     width: 90%;
@@ -31,11 +40,14 @@
   .photo {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
   .bikeDetails {
+    padding: 1rem;
     width: 30rem;
     display: flex;
     justify-content: space-between;
+    background-color: rgb(244, 244, 250);
   }
   .bikeDetails img {
     width: 5rem;
@@ -91,6 +103,9 @@
   #star-field {
     text-align: center;
   }
+  .card {
+    border: 1px solid rgb(246, 200, 69);
+  }
 
   @media (max-width: 620px) {
     .bikeDetails {
@@ -140,7 +155,7 @@
 </style>
 <% if(!details){ %>
 <div class="outer-container mt-3">
-  <div class="card" style="width: 18rem">
+  <div class="card" id="no-bookings">
     <img
       src="https://i.pinimg.com/474x/95/db/7d/95db7d021063bc34b34a0dba41d28844.jpg"
       class="card-img-top"
@@ -222,7 +237,7 @@
       <input
         type="text"
         style="display: none"
-        value="<%= details.userData %>"
+        value="<%= details.userData._id %>"
         name="userId" />
       <input
         type="text"
@@ -275,6 +290,24 @@
       </div>
     </div>
   </div>
+  <form action="/bookings/success" method="post">
+    <input
+      type="text"
+      style="display: none"
+      value="<%= details._id %>"
+      name="orderId" />
+    <input
+      type="text"
+      style="display: none"
+      value="<%= details.userData._id %>"
+      name="userId" />
+    <input
+      type="text"
+      style="display: none"
+      value="<%= details.driverData._id %>"
+      name="driverId" />
+    <button type="submit" class="btn btn-outline-success">Complete Ride</button>
+  </form>
 </div>
 
 <% } %>

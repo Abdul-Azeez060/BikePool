@@ -1,6 +1,7 @@
 <style>
   .image {
     width: 6rem;
+
     margin: 1rem;
     border-radius: 50%;
   }
@@ -15,6 +16,9 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    border: 1px solid rgb(116, 131, 220);
+    border-radius: 10px;
+    padding: 0.5rem;
   }
   .driver {
     align-items: center;
@@ -22,34 +26,85 @@
   .btn-danger {
     margin-bottom: 1rem;
   }
+  .card-banner {
+    height: 20%;
+    background-color: rgb(244, 244, 250);
+    width: 95%;
+    border: 20px;
+  }
+  #profile-name {
+    color: rgb(116, 131, 220);
+    font-weight: 900;
+    font-size: 1.5rem;
+  }
+  #profile-email{
+    text-align: center;
+    margin-bottom: 0.8rem;
+    width: max-content;
+  }
+  #profile-number{
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .bikeNum{
+    background: rgb(87,94,106);
+    padding: 0.4rem 1rem;
+    border-radius: 40px;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  .profile-bike-desc{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .bike-desc{
+    border: 1px solid black;
+    padding: 0.4rem 1rem;
+    border-radius: 40px;
+  }
+  #email{
+    font-size: small;
+  }
 </style>
 
 <% layout('./layout/boilerplate') -%>
 <div class="container">
   <div class="driver">
     <hr />
-    Profile
-    <div class="card" style="width: 18rem">
-      <img
-        class="image"
-        src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
-        alt="" />
+
+    <div class="card" style="min-width: 18rem">
+      <div class="card-banner">
+        <img
+          class="image"
+          src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
+          alt="" />
+      </div>
+
       <div class="card-body">
         <p class="card-text">
-          <span style="font-weight: 900"><%= user.name%></span> <br />
-          <span>+91&nbsp;<%= user.phone %></span>
-          <span><%= user.email %></span>
+          <span id="profile-name"><%= user.name%></span> <br />
+          <div id="profile-number">
+            <i class="fa-solid fa-phone"></i>
+            <span style="margin-left: 0.5rem;">+91&nbsp;<%= user.phone %></span>
+          </div>
+          <div id="profile-email">
+            <i class="fa-regular fa-message"></i>
+            <span id="email"><%= user.email %></span>
+          </div>
+          <% if (user.role == 'driver') { %>
+            <div class="details">
+              <i class="fa-solid fa-motorcycle"></i>
+              <span class="bikeNum"><%= user.bikeNum %></span> <br>
+            </div>
+            <div class="profile-bike-desc">
+              <span class="bike-desc"><%= user.bikeDesc %></span>
+            </div>
+            <% } %>
         </p>
       </div>
     </div>
     <hr mb-3 />
-
-    <% if (user.role == 'driver') { %>
-    <div class="details">
-      <span class="bikeNum"><%= user.bikeNum %></span>
-      <span><%= user.bikeDesc %></span>
-    </div>
-    <% } %>
+   
   </div>
   <hr />
   <form action="/user/logOut" method="get">
