@@ -49,7 +49,47 @@
     border: 1px solid white;
     padding: 0.5rem;
   }
+  .reviews {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: skyblue;
+    border: 1px solid rgb(66, 112, 213);
+    border-radius: 20px;
+    width: 80%;
+    padding: 10px;
+  }
+  .reviews-outer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  .reviews form {
+    text-align: center;
+    width: 70%;
+  }
+  .form-check {
+    width: fit-content;
+  }
+  .review-submit-btn {
+    margin-top: 1rem;
+  }
 
+  .carousel-item.active {
+    display: block;
+    width: 20rem;
+  }
+  .carousel-inner {
+    max-width: 21rem;
+  }
+  .card-body {
+    height: 15rem;
+    width: 20rem;
+  }
+  .card {
+    width: 20rem;
+  }
   @media (min-width: 768px) and (max-width: 940px) {
     .banner-foot {
       display: none;
@@ -61,6 +101,7 @@
       margin: 0;
     }
   }
+
   @media (max-width: 767px) {
     .outer-banner-image {
       width: 100%;
@@ -236,6 +277,167 @@
         Making it easy and enjoyable for riders to connect and share bike rides
         efficiently
       </h5>
+    </div>
+
+    <div style="text-align: center; display: flex; justify-content: center">
+      <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+        </div>
+
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                  Card subtitle
+                </h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                  Card subtitle
+                </h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                  Card subtitle
+                </h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+    <div class="reviews-outer">
+      <% if (currUser) { %>
+      <div class="reviews">
+        <h4>Reviews</h4>
+        <form
+          action="/bookings/reviews"
+          method="POST"
+          class="needs-validation"
+          novalidate>
+          <fieldset class="starability-slot">
+            <input
+              type="radio"
+              id="no-rate"
+              class="input-no-rate"
+              name="review[rating]"
+              value="4"
+              checked
+              aria-label="No rating." />
+            <input
+              type="radio"
+              id="first-rate1"
+              name="review[rating]"
+              value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input
+              type="radio"
+              id="first-rate2"
+              name="review[rating]"
+              value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input
+              type="radio"
+              id="first-rate3"
+              name="review[rating]"
+              value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input
+              type="radio"
+              id="first-rate4"
+              name="review[rating]"
+              value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input
+              type="radio"
+              id="first-rate5"
+              name="review[rating]"
+              value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+          <div class="mb-2 mt-1">
+            <label for="comments" class="form-label">Comment</label>
+            <textarea
+              name="review[comment]"
+              id=""
+              cols="30"
+              rows="3"
+              class="form-control"
+              required></textarea>
+            <div class="invalid-feedback">Please Comment.</div>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="review[showIn]"
+              id="flexCheckChecked"
+              checked />
+            <label class="form-check-label" for="flexCheckChecked">
+              Show this review in the home page
+            </label>
+          </div>
+          <button class="btn btn-outline-dark review-submit-btn">Submit</button>
+        </form>
+        <% } %>
+      </div>
     </div>
   </div>
 </body>

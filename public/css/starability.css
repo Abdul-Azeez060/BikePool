@@ -49,9 +49,10 @@
 }
 
 .starability-slot {
-  display: block;
+  display: flex;
+  justify-content: center;
   position: relative;
-  min-height: 60px;
+  min-height: 20px;
   padding: 0;
   border: none;
 }

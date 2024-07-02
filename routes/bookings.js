@@ -11,10 +11,14 @@ const {
   addNewBooking,
   handleBooking,
   handleCompleteRide,
+  handleReviews,
 } = require("../controllers/bookings");
 
 //bookings page
 router.get("/", handleBooking);
+
+//reviews
+router.post("/reviews", restrictTo(["driver", "user"]), handleReviews);
 
 //new booking get req
 router.get("/new", restrictTo(["driver"]), addNewBooking);

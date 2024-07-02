@@ -3,12 +3,34 @@ const User = require("../models/User");
 const BookedOrder = require("../models/BookedOrders");
 const Order = require("../models/Orders");
 const { ExpressError } = require("../utils/ExpressError");
+const { Review } = require("../models/Reviews");
 
 async function deleteBooking(req, res, userID, time) {
   let data = await Order.findById(userID);
   setTimeout(async () => {
     await Order.findByIdAndDelete(userID);
   }, time * 60 * 1000);
+}
+
+async function handleReviews(req, res, next) {
+  try {
+    let { review } = req.body;
+    if (res.locals.currUser.role == "user") {
+      review.userId = res.locals.currUser._id;
+    } else {
+      review.driverId = res.locals.currUser._id;
+    }
+    review.showIn = review.showIn == "on" ? true : false;
+
+    console.log(res.locals.currUser._id);
+    console.log(review);
+    let newReview = await new Review(review).save();
+    if (!newReview) return next(new ExpressError("Review not submitted"));
+    console.log(newReview);
+    res.redirect("/");
+  } catch (err) {
+    next(err);
+  }
 }
 async function handleMyOrders(req, res, next) {
   try {
@@ -144,4 +166,5 @@ module.exports = {
   handleNewBooking,
   addNewBooking,
   handleCompleteRide,
+  handleReviews,
 };
