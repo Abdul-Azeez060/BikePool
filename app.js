@@ -20,7 +20,7 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  mongoose.connect(MONGO_URL);
+  mongoose.connect(process.env.MONGO_URL);
 }
 
 // middleware function
