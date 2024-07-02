@@ -14,7 +14,6 @@ const app = express();
 const port = 8080;
 const cluster = require("cluster");
 const os = require("os");
-const Review = require("./models/Reviews");
 
 main()
   .then(() => console.log("successfull connected"))
