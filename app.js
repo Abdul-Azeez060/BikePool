@@ -14,21 +14,21 @@ const app = express();
 const port = 8080;
 const cluster = require("cluster");
 const os = require("os");
+const Review = require("./models/Reviews");
 
 main()
   .then(() => console.log("successfull connected"))
   .catch((err) => console.log(err));
 
 async function main() {
-  console.log(process.env.MONGO_URL);
-  mongoose.connect("mongodb://127.0.0.1:27017/BikePool");
+  mongoose.connect(MONGO_URL);
 }
 
 // middleware function
 const sessionOptions = {
   secret: process.env.SECRET_CODE,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     expires: Date.now() * 2 * 7 * 24 * 60 * 60 * 1000,
     maxAge: 2 * 7 * 24 * 60 * 60 * 1000,
