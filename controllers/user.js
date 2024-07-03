@@ -45,7 +45,9 @@ async function handlelogin(req, res, next) {
       req.flash("error", "Invalid user");
       return res.redirect("/user/login");
     }
+    console.log(data);
     const token = setUser(data);
+    console.log(token);
     res.cookie("uid", token);
     req.flash("success", "Welcome Back");
     res.redirect("/bookings");

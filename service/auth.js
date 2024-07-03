@@ -3,7 +3,7 @@ const secret = process.env.SECRET_CODE;
 function setUser(data) {
   return jwt.sign(
     {
-      exp: Math.floor(Date.now() / 1000) + 2 * 7 * 24 * 60 * 60,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60,
       data: data,
       role: data.role,
     },
