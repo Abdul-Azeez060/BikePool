@@ -16,7 +16,7 @@ async function handleReviews(req, res, next) {
   try {
     let { review } = req.body;
     review.name = res.locals.currUser.name;
-    review.image = currUser.image;
+    review.image = res.locals.currUser.image;
     review.showIn = review.showIn == "on" ? true : false;
     console.log(review);
     let newReview = await new Review(review).save();
