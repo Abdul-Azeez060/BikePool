@@ -1,16 +1,13 @@
 const { required } = require("joi");
 const mongoose = require("mongoose");
+const { message, type } = require("../Schema");
 
 const ReviewSchema = mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+  name: {
+    type: String,
+    required: true,
   },
-  driverId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Driver",
-  },
-  review: {
+  comment: {
     type: String,
   },
   rating: {

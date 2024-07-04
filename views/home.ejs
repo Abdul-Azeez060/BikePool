@@ -54,11 +54,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: skyblue;
+    background: white;
     border: 1px solid rgb(66, 112, 213);
     border-radius: 20px;
     width: 80%;
     padding: 10px;
+    margin: 1rem;
   }
   .reviews-outer {
     display: flex;
@@ -75,20 +76,18 @@
   .review-submit-btn {
     margin-top: 1rem;
   }
-
-  .carousel-item.active {
-    display: block;
-    width: 20rem;
+  .review-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
   }
-  .carousel-inner {
-    max-width: 21rem;
+  .starability-result {
+    margin: 0.25rem 0;
   }
-  .card-body {
-    height: 15rem;
-    width: 20rem;
-  }
-  .card {
-    width: 20rem;
+  .review-delete-btn {
+    font-size: 0.8rem;
   }
   @media (min-width: 768px) and (max-width: 940px) {
     .banner-foot {
@@ -272,97 +271,43 @@
     </div>
     <div class="works">
       <h4 id="features-head">How it works</h4>
-      <img src="" alt="" />
       <h5>
         Making it easy and enjoyable for riders to connect and share bike rides
         efficiently
       </h5>
     </div>
-
-    <div style="text-align: center; display: flex; justify-content: center">
-      <div id="carouselExampleIndicators" class="carousel slide">
-        <div class="carousel-indicators">
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="0"
-            class="active"
-            aria-current="true"
-            aria-label="Slide 1"></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"></button>
-        </div>
-
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">
-                  Card subtitle
-                </h6>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-              </div>
+    <% if (reviews) { %>
+    <div class="review-display">
+      <h4 id="features-head">What our customers think</h4>
+      <div class="wrapper">
+        <i id="left" class="fa-solid fa-angle-left"></i>
+        <ul class="carousel">
+          <% for(let review of reviews) { %>
+          <li class="card">
+            <div class="img">
+              <img
+                src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
+                alt="img"
+                draggable="false" />
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">
-                  Card subtitle
-                </h6>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">
-                  Card subtitle
-                </h6>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+            <h2><%= review.name%></h2>
+            <p
+              class="starability-result"
+              data-rating="<%= review.rating %>"></p>
+            <span><%= review.comment %></span>
+            <!-- <span
+                ><button class="btn btn-outline-danger review-delete-btn">
+                  <a href="/bookings/reviews/<%= review._id %>">Remove</a>
+                </button></span
+              > -->
+          </li>
+          <% } %>
+        </ul>
+        <i id="right" class="fa-solid fa-angle-right"></i>
       </div>
     </div>
+    <% } %>
+
     <div class="reviews-outer">
       <% if (currUser) { %>
       <div class="reviews">
@@ -378,7 +323,7 @@
               id="no-rate"
               class="input-no-rate"
               name="review[rating]"
-              value="4"
+              value="5"
               checked
               aria-label="No rating." />
             <input

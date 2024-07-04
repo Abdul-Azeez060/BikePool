@@ -15,23 +15,26 @@ async function deleteBooking(req, res, userID, time) {
 async function handleReviews(req, res, next) {
   try {
     let { review } = req.body;
-    if (res.locals.currUser.role == "user") {
-      review.userId = res.locals.currUser._id;
-    } else {
-      review.driverId = res.locals.currUser._id;
-    }
+    review.name = res.locals.currUser.name;
     review.showIn = review.showIn == "on" ? true : false;
-
-    console.log(res.locals.currUser._id);
     console.log(review);
     let newReview = await new Review(review).save();
     if (!newReview) return next(new ExpressError("Review not submitted"));
     console.log(newReview);
+    req.flash("success", "Review Added");
     res.redirect("/");
   } catch (err) {
     next(err);
   }
 }
+// async function handleDeleteReview(req, res, next) {
+//   try {
+//     let { id } = req.params;
+//     await Review.findByIdAndDelete(id);
+//   } catch (err) {
+//     next(err);
+//   }
+// }
 async function handleMyOrders(req, res, next) {
   try {
     let id = res.locals.currUser._id;
@@ -167,4 +170,5 @@ module.exports = {
   addNewBooking,
   handleCompleteRide,
   handleReviews,
+  // handleDeleteReview,
 };

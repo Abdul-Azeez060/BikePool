@@ -14,6 +14,8 @@ const session = require("express-session");
 const port = 8080;
 const cluster = require("cluster");
 const os = require("os");
+const { Review } = require("./models/Reviews");
+const { log } = require("console");
 
 main()
   .then(() => console.log("successfull connected"))
@@ -67,8 +69,14 @@ if (cluster.isMaster) {
   app.use("/user", usersRouter);
 
   //home page
-  app.get("/", (req, res) => {
-    res.render("./home.ejs");
+  app.get("/", async (req, res) => {
+    try {
+      const reviews = await Review.find();
+      console.log(reviews);
+      res.render("./home.ejs", { reviews });
+    } catch (err) {
+      next(err);
+    }
   });
 
   app.get("/id", (req, res) => {

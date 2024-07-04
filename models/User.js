@@ -25,6 +25,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   orderId: { type: mongoose.Schema.Types.ObjectId, ref: "BookedOrder" },
+  review: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
 });
 
 const User = mongoose.model("User", UserSchema);

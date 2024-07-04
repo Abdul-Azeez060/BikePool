@@ -20,6 +20,9 @@ router.get("/", handleBooking);
 //reviews
 router.post("/reviews", restrictTo(["driver", "user"]), handleReviews);
 
+// delete req to review
+// router.get('/reviews/:id',restrictTo(['driver', 'user']), handleDeleteReview);
+
 //new booking get req
 router.get("/new", restrictTo(["driver"]), addNewBooking);
 

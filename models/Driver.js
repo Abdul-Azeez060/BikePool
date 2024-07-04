@@ -38,6 +38,7 @@ const DriverSchema = new mongoose.Schema({
     default: 5,
   },
   orderId: { type: mongoose.Schema.Types.ObjectId, ref: "BookedOrder" },
+  review: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
 });
 
 const Driver = mongoose.model("Driver", DriverSchema);
