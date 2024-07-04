@@ -176,9 +176,7 @@
     <div class="order ms-auto me-auto">
       <div class="profile-background">
         <div class="profile1 col-4">
-          <img
-            src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
-            alt="profile pic" />
+          <img src="<%= order.image %>" alt="profile pic" />
           <p id="name">Name: <%= order.name %>&nbsp;</p>
           <p id="name">Price: &#8377;<%= order.price %>&nbsp;</p>
         </div>
@@ -211,10 +209,10 @@
             Cancel Ride
           </button>
         </form>
+
+        <% } %>
       </div>
-      <% } %>
     </div>
     <% } %> <% } %>
   </div>
-  <script></script>
 </body>

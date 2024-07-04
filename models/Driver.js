@@ -37,6 +37,11 @@ const DriverSchema = new mongoose.Schema({
     type: Number,
     default: 5,
   },
+  image: {
+    type: String,
+    default:
+      "https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png",
+  },
   orderId: { type: mongoose.Schema.Types.ObjectId, ref: "BookedOrder" },
   review: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
 });

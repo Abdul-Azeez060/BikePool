@@ -14,6 +14,9 @@ const ReviewSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  image: {
+    type: String,
+  },
   showIn: {
     type: Boolean,
     required: true,

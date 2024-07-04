@@ -177,9 +177,7 @@
     <hr />
     <div class="bikeDetails">
       <div class="photo">
-        <img
-          src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
-          alt="" />
+        <img src="<%= details.driverData.image %>" alt="" />
         <span style="font-weight: 900"><%= details.driverData.name%></span>
       </div>
 
@@ -208,26 +206,7 @@
     </div>
   </div>
   <div class="rating">
-    <p>Please rate your experience</p>
-    <form
-      action="/user/rating/<%= details.driverData._id %>"
-      class="star-form"
-      method="POST">
-      <fieldset class="starability-slot" id="star-field">
-        <input type="radio" id="first-rate1" name="rating" value="1" />
-        <label for="first-rate1" title="Terrible">1 star</label>
-        <input type="radio" id="first-rate2" name="rating" value="2" />
-        <label for="first-rate2" title="Not good">2 stars</label>
-        <input type="radio" id="first-rate3" name="rating" value="3" />
-        <label for="first-rate3" title="Average">3 stars</label>
-        <input type="radio" id="first-rate4" name="rating" value="4" />
-        <label for="first-rate4" title="Very good">4 stars</label>
-        <input type="radio" id="first-rate5" name="rating" value="5" />
-        <label for="first-rate5" title="Amazing">5 stars</label>
-        <br />
-        <button class="badge text-bg-success success">Submit</button>
-      </fieldset>
-    </form>
+    <p>Do you really want to cancel the ride</p>
     <form action="/bookings/cancelride" method="post">
       <input
         type="text"
@@ -261,9 +240,7 @@
     <hr />
     <div class="bikeDetails">
       <div class="photo">
-        <img
-          src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
-          alt="" />
+        <img src="<%= details.userData.image %>" alt="" />
         <span style="font-weight: 900"><%= details.userData.name%></span>
       </div>
 

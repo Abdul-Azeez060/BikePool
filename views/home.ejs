@@ -285,10 +285,7 @@
           <% for(let review of reviews) { %>
           <li class="card">
             <div class="img">
-              <img
-                src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
-                alt="img"
-                draggable="false" />
+              <img src="<%= review.image %>" alt="img" draggable="false" />
             </div>
             <h2><%= review.name%></h2>
             <p

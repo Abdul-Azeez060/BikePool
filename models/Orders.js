@@ -28,6 +28,9 @@ const OrderSchema = new mongoose.Schema({
   isBooked: {
     type: Boolean,
   },
+  image: {
+    type: String,
+  },
   driverData: [{ type: mongoose.Schema.Types.ObjectId, ref: "Driver" }],
   userData: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });

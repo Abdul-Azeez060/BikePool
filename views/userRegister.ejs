@@ -60,6 +60,10 @@
     </form>
   </div>
   <script>
+    window.phoneEmailListener = function (userObj) {
+      var user_phone_number = userObj.user_phone_number;
+      document.getElementById("phone").value = user_phone_number;
+    };
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (() => {
       "use strict";
