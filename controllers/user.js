@@ -26,6 +26,11 @@ async function handleDriverSignUp(req, res, next) {
 async function handleUserSignUp(req, res, next) {
   try {
     let data = req.body;
+    data.image =
+      data.image == "male"
+        ? "https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/173502583/original/6a346e0505fac7746ebd790a5de335221c42a4a5/draw-a-simple-big-head-cartoon-from-your-photo.png"
+        : "https://static.boredpanda.com/blog/wp-content/uploads/2020/09/67950251_497014150843468_6994039138377086122_n-5f60ef7458981__880.jpg";
+
     const insertedData = await new User(data).save();
     const token = setUser(insertedData);
     res.cookie("uid", token);
