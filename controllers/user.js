@@ -2,7 +2,7 @@ const User = require("../models/User");
 const Driver = require("../models/Driver");
 const { setUser } = require("../service/auth");
 const { ExpressError } = require("../utils/ExpressError");
-
+const cookieExp = 2 * 7 * 24 * 60 * 60 * 1000;
 async function handleDriverSignUp(req, res, next) {
   try {
     let data = req.body;
@@ -14,7 +14,7 @@ async function handleDriverSignUp(req, res, next) {
     const insertedData = await new Driver(data).save();
     console.log(insertedData);
     const token = setUser(insertedData);
-    res.cookie("uid", token);
+    res.cookie("uid", token, { maxAge: cookieExp });
     req.flash("success", "Welcome to BikePool");
     res.redirect("/");
   } catch (err) {
@@ -33,7 +33,7 @@ async function handleUserSignUp(req, res, next) {
 
     const insertedData = await new User(data).save();
     const token = setUser(insertedData);
-    res.cookie("uid", token);
+    res.cookie("uid", token, { maxAge: cookieExp });
     req.flash("success", "Welcome to BikePool");
     res.redirect("/");
   } catch (err) {
@@ -57,7 +57,7 @@ async function handlelogin(req, res, next) {
       return res.redirect("/user/login");
     }
     const token = setUser(data);
-    res.cookie("uid", token);
+    res.cookie("uid", token, { maxAge: cookieExp });
     req.flash("success", "Welcome Back");
     res.redirect("/bookings");
   } catch (err) {

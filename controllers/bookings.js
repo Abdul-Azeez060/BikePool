@@ -114,7 +114,7 @@ async function handleNewBooking(req, res) {
     let data = req.body.booking;
     let t = new Date(
       new Date().getTime() + parseInt(data.time) * 60 * 1000
-    ).toLocaleTimeString();
+    ).toLocaleTimeString("en-US", { timeZone: "Asia/Kolkata" });
     let details = await Order({
       name: res.locals.currUser.name,
       pickUp: data.pickUp,
