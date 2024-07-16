@@ -16,13 +16,18 @@ const cluster = require("cluster");
 const os = require("os");
 const { Review } = require("./models/Reviews");
 const { log } = require("console");
+const { ExpressError } = require("./utils/ExpressError");
 
 main()
   .then(() => console.log("successfull connected"))
   .catch((err) => console.log(err));
 
 async function main() {
-  mongoose.connect(process.env.MONGO_URL);
+  try {
+    mongoose.connect(process.env.MONGO_URL);
+  } catch (error) {
+    next(new ExpressError("couldn't not connect to the database", 500));
+  }
 }
 
 // middleware function
@@ -83,6 +88,9 @@ if (cluster.isMaster) {
     const id = process.pid;
     console.log(id);
     res.render("./id.ejs", { id });
+  });
+  app.get("/notify", (req, res) => {
+    res.render("./notify.ejs");
   });
 
   app.all("*", (req, res) => {

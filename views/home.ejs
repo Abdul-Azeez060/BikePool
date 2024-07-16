@@ -210,6 +210,7 @@
             Your Journey, Our Priority: Simplifying Travel, One Click at a Time
           </p>
         </div>
+
         <% if (!currUser) { %>
         <div class="banner-foot">
           <p id="are-you">Are You ?</p>
@@ -382,4 +383,7 @@
       </div>
     </div>
   </div>
+  <script>
+    notificationService.checkPermission();
+  </script>
 </body>
