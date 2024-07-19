@@ -77,7 +77,6 @@ if (cluster.isMaster) {
   app.get("/", async (req, res) => {
     try {
       const reviews = await Review.find();
-      console.log(reviews);
       res.render("./home.ejs", { reviews });
     } catch (err) {
       next(err);
