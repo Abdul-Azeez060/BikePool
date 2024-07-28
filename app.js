@@ -32,7 +32,7 @@ async function main() {
 
 // middleware function
 const sessionOptions = {
-  secret: "aBdUl$aZeeZ#2145",
+  secret: process.env.SECRET_CODE,
   resave: false,
   saveUninitialized: false,
   cookie: {

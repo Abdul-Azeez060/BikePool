@@ -35,6 +35,14 @@
     form label {
       font-size: 80%;
     }
+    @media (max-width: 425px) {
+      .container {
+        max-width: 80%;
+      }
+      .register h5 {
+        font-size: 100%;
+      }
+    }
   }
 </style>
 
@@ -84,6 +92,7 @@
             src="https://www.phone.email/sign_in_button_v1.js"
             async></script>
         </div>
+        <div class="valid-feedback">Looks good!</div>
         <div class="invalid-feedback">Please enter your mobile number</div>
       </div>
       <button type="submit" class="btn btn-outline-primary">Submit</button>
@@ -95,7 +104,7 @@
         srcset="" />
     </div>
   </div>
-  <div class="container">
+  <div class="container register">
     <h3>New to Velgo</h3>
     <h5>Register as a <a href="/user/register/driver">Rider</a></h5>
     <h5>Register as a <a href="/user/register/user">User</a></h5>
