@@ -4,6 +4,7 @@ const BookedOrder = require("../models/BookedOrders");
 const Order = require("../models/Orders");
 const { ExpressError } = require("../utils/ExpressError");
 const { Review } = require("../models/Reviews");
+const sendNotification = require("../service/notify");
 
 async function deleteBooking(req, res, userID, time) {
   let data = await Order.findById(userID);
@@ -73,12 +74,17 @@ async function handleCancelRide(req, res) {
 async function handleBookingDetails(req, res, next) {
   try {
     let id = req.params.id;
-    let details = await Order.findByIdAndUpdate(id, { isBooked: true });
+    let details = await Order.findByIdAndUpdate(id, {
+      isBooked: true,
+    }).populate("driverData");
     if (!details) {
       req.flash("error", "Booking not found");
       res.redirect("/bookings");
     }
-    console.log(details);
+    // console.log(details);
+    let phoneNumber = details.driverData[0].phone;
+    phoneNumber = "+91" + phoneNumber;
+    console.log(phoneNumber, "this is phone numeber");
     let bookedDetails = new BookedOrder({
       name: details.name,
       pickUp: details.pickUp,
@@ -101,6 +107,8 @@ async function handleBookingDetails(req, res, next) {
       req.flash("error", "Not logged in");
       res.redirect("/user/login");
     }
+    const notify = await sendNotification(phoneNumber);
+    console.log(notify);
 
     req.flash("success", "Ride Booked");
     res.redirect("/bookings/myorders");
