@@ -19,10 +19,10 @@ const { log } = require("console");
 const { ExpressError } = require("./utils/ExpressError");
 
 main()
-  .then(() => console.log("successfull connected"))
+  .then((success) => console.log("successfull connected"))
   .catch((err) => console.log(err));
 
-async function main() {
+function main() {
   try {
     mongoose.connect(process.env.MONGO_URL);
   } catch (error) {
