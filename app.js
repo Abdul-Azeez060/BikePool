@@ -22,7 +22,7 @@ main()
   .then((success) => console.log("successfull connected"))
   .catch((err) => console.log(err));
 
-function main() {
+async function main() {
   try {
     mongoose.connect(process.env.MONGO_URL);
   } catch (error) {
