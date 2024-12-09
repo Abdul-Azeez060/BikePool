@@ -283,7 +283,8 @@
       <div class="wrapper">
         <i id="left" class="fa-solid fa-angle-left"></i>
         <ul class="carousel">
-          <% for(let review of reviews) { %>
+          <% for(let review of reviews) { %> <% if (review.showIn) { %>
+
           <li class="card">
             <div class="img">
               <img src="<%= review.image %>" alt="img" draggable="false" />
@@ -299,7 +300,7 @@
                 </button></span
               > -->
           </li>
-          <% } %>
+          <% } %> <% } %>
         </ul>
         <i id="right" class="fa-solid fa-angle-right"></i>
       </div>
