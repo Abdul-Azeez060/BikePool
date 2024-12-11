@@ -21,4 +21,5 @@ jobs:
       - name: Start the server
         env:
           MONGO_URL: ${{secrets.MONGO_URL}}
+          SECRET_CODE: ${{secrets.SECRET_CODE}}
         run: npm run build
