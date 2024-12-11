@@ -39,4 +39,4 @@ jobs:
             sudo docker pull abdulazeez06/velgo:latest
             sudo docker stop web-app || true
             sudo docker rm web-app || true
-            sudo docker run -d --name web-app -p 3000:8080 abdulazeez06/velgo
+            sudo docker run -d --name web-app -p 8080:8080 abdulazeez06/velgo
