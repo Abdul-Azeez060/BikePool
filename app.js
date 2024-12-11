@@ -59,7 +59,6 @@ if (cluster.isMaster) {
   app.use(cookieParser());
   app.use(express.urlencoded({ extended: true })); // the post request send the data through the url(which is not visible), so we encode the url
   app.use(checkAuthentication);
-
   app.use(session(sessionOptions));
   app.use(flash());
   app.use((req, res, next) => {
