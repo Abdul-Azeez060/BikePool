@@ -24,7 +24,7 @@ main()
 
 async function main() {
   try {
-    mongoose.connect(process.env.MONGO_URL);
+    mongoose.connect(process.env.MONGO_URL || "mongodb://");
   } catch (error) {
     next(new ExpressError("couldn't not connect to the database", 500));
   }
