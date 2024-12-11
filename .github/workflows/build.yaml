@@ -23,3 +23,6 @@ jobs:
           MONGO_URL: ${{secrets.MONGO_URL}}
           SECRET_CODE: ${{secrets.SECRET_CODE}}
         run: npm run build
+
+      - name: Stop the server
+        run: kill $(lsof -t -i:8080) || echo "Server already stopped"
