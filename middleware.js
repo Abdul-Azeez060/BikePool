@@ -69,6 +69,7 @@ function restrictTo(roles) {
       req.flash("error", "Your Not Authorized");
       return res.redirect("/bookings");
     }
+
     next();
   };
 }
