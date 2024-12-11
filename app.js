@@ -7,10 +7,8 @@ const bookingsRouter = require("./routes/bookings");
 const usersRouter = require("./routes/user");
 const { checkAuthentication } = require("./middleware");
 const cookieParser = require("cookie-parser");
-
 const flash = require("connect-flash");
 const session = require("express-session");
-
 const port = 8080;
 const cluster = require("cluster");
 const os = require("os");
