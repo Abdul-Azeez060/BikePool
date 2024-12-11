@@ -2,6 +2,7 @@ const trips = [
   {
     name: "Abdul Azeez",
     price: 20,
+
     pickUp: "Vishnu South Gate",
     dropIn: "Railway Station",
   },
