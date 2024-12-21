@@ -16,7 +16,7 @@ function getUser(token) {
   try {
     return jwt.verify(token, secret);
   } catch (error) {
-    console.log("enter valid jwt token");
+    console.log("enter valid jwt");
   }
 }
 module.exports = { setUser, getUser };
