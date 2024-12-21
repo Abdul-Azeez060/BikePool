@@ -202,10 +202,15 @@
     <div class="banner row">
       <div class="col-md-6 col-sm-12">
         <div class="banner-head">
+          <% if (!currUser) { %>
           <p id="banner-heading" class="shadow-lg">
-            Book Your Ride: <br />
+            Book Your Ride <br />
             Easy, Fast, Reliable
           </p>
+          <% } else { %>
+          <p id="banner-heading" class="shadow-lg">Hi <%- currUser.name -%></p>
+          <% } %>
+
           <p id="banner-caption">
             Your Journey, Our Priority: Simplifying Travel, One Click at a Time
           </p>

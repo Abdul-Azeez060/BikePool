@@ -16,13 +16,12 @@ const { Review } = require("./models/Reviews");
 const { log } = require("console");
 const { ExpressError } = require("./utils/ExpressError");
 
-main()
-  .then((success) => console.log("successfull connected"))
-  .catch((err) => console.log(err));
+main();
 
 async function main() {
   try {
-    mongoose.connect(process.env.MONGO_URL);
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log("successfully connected");
   } catch (error) {
     next(new ExpressError("couldn't not connect to the database", 500));
   }
