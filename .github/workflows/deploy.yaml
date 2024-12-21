@@ -39,8 +39,4 @@ jobs:
             sudo docker pull abdulazeez06/velgo:latest
             sudo docker stop web-app || true
             sudo docker rm web-app || true
-            sudo docker run -d --restart always \
-              -e MONGO_URL=${{ secrets.MONGO_URL }} \
-              -e SECRET_CODE=${{ secrets.SECRET_CODE }} \
-              --name web-app \
-              -p 8080:8080 abdulazeez06/velgo:latest
+            sudo docker run -d --restart always -e MONGO_URL=${{ secrets.MONGO_URL }} -e SECRET_CODE=${{ secrets.SECRET_CODE }} --name web-app -p 8080:8080 abdulazeez06/velgo:latest
