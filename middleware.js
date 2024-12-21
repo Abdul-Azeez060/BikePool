@@ -22,6 +22,9 @@ function checkAuthentication(req, res, next) {
     return next();
   }
   let { data: user } = getUser(token);
+  if (!user) {
+    res.locals.currUser = null;
+  }
   res.locals.currUser = user;
   next();
 }
