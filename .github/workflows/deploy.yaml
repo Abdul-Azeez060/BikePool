@@ -35,7 +35,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          MONGO_URL: "hi how areyou"
           script: |
             sudo docker pull abdulazeez06/velgo:latest
             sudo docker stop web-app || true

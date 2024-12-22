@@ -50,7 +50,6 @@ router.get("/logOut", async (req, res) => {
 });
 
 router.get("/profile", restrictTo(["driver", "user"]), async (req, res) => {
-  console.log(res.locals.currUser);
   res.render("./profile.ejs", { user: res.locals.currUser });
 });
 
