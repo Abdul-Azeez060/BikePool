@@ -43,7 +43,6 @@ router.get("/login", async (req, res) => {
 });
 
 router.get("/logOut", async (req, res) => {
-  console.log("logout");
   res.clearCookie("uid");
   req.flash("success", "Log Out Successfull");
   res.redirect("/");
