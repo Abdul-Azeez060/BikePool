@@ -20,8 +20,7 @@ function checkAuthentication(req, res, next) {
     return next();
   }
   let obj = getUser(token);
-
-  if (!obj.res.data || obj.err != null) {
+  if (obj.err) {
     res.locals.currUser = null;
   } else {
     res.locals.currUser = obj.res.data;
