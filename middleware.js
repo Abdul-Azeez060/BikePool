@@ -6,10 +6,8 @@ const BookedOrder = require("./models/BookedOrders");
 const { ExpressError } = require("./utils/ExpressError");
 
 function validateOrder(req, res, next) {
-  console.log("this is the validation");
   let ans = OrderSchema.validate(req.body.booking);
   if (ans.error) {
-    console.log("there is error");
     return next(ans.error); // next(err) here default express error handler comes without using error handler middleware
   }
   return next();
@@ -22,24 +20,20 @@ function checkAuthentication(req, res, next) {
     return next();
   }
   let obj = getUser(token);
-  if (!obj.res || err != null) {
+
+  if (!obj.res.data || obj.err != null) {
     res.locals.currUser = null;
+  } else {
+    res.locals.currUser = obj.res.data;
   }
-  res.locals.currUser = obj.res.data;
+
   next();
 }
 
 async function cancelRide(req, res, next) {
   try {
     let { orderId, userId, driverId } = req.body;
-    console.log(
-      orderId,
-      "this is order id",
-      userId,
-      "this is user id",
-      driverId,
-      "this is driver id"
-    );
+
     await Driver.findByIdAndUpdate(driverId, { orderId: null });
     await User.findByIdAndUpdate(userId, { orderId: null });
     await BookedOrder.findByIdAndDelete(orderId);

@@ -18,10 +18,10 @@ async function handleReviews(req, res, next) {
     review.name = res.locals.currUser.name;
     review.image = res.locals.currUser.image;
     review.showIn = review.showIn == "on" ? true : false;
-    console.log(review);
+
     let newReview = await new Review(review).save();
     if (!newReview) return next(new ExpressError("Review not submitted"));
-    console.log(newReview);
+
     req.flash("success", "Review Added");
     res.redirect("/");
   } catch (err) {
@@ -78,7 +78,7 @@ async function handleBookingDetails(req, res, next) {
       req.flash("error", "Booking not found");
       res.redirect("/bookings");
     }
-    console.log(details);
+
     let bookedDetails = new BookedOrder({
       name: details.name,
       pickUp: details.pickUp,
@@ -153,7 +153,7 @@ async function handleBooking(req, res, next) {
 
 async function handleCompleteRide(req, res, next) {
   let { orderId } = req.body;
-  console.log("compleete button clicked");
+
   try {
     await Order.findOneAndDelete(orderId);
     req.flash("success", "Ride Complete");

@@ -13,7 +13,6 @@ const port = 8080;
 const cluster = require("cluster");
 const os = require("os");
 const { Review } = require("./models/Reviews");
-const { log } = require("console");
 const { ExpressError } = require("./utils/ExpressError");
 
 main();
@@ -81,7 +80,7 @@ if (cluster.isMaster) {
 
   app.get("/id", (req, res) => {
     const id = process.pid;
-    console.log(id);
+
     res.render("./id.ejs", { id });
   });
   app.get("/notify", (req, res) => {
