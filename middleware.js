@@ -21,11 +21,11 @@ function checkAuthentication(req, res, next) {
     res.locals.currUser = null;
     return next();
   }
-  let { data: user } = getUser(token);
-  if (!user) {
+  let obj = getUser(token);
+  if (!obj.res || err != null) {
     res.locals.currUser = null;
   }
-  res.locals.currUser = user;
+  res.locals.currUser = obj.res.data;
   next();
 }
 
