@@ -1,0 +1,23 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+
+  velgo:
+    build: .
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /velgo/app
+          ignore:
+            - node_modules/
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/mongo
+      - SECRET_CODE=a%405efhBhjS*923m,plq
+    depends_on:
+      - mongodb
