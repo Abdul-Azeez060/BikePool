@@ -301,16 +301,15 @@ const BookedOrderSchema = new mongoose.Schema({
 
 ## Clone into local system
 
+- fork the repository into your github account
+- clone it into your local system `git clone <repository-name>`
+
 ## With Docker
 
-    ```
     docker compose up --watch
-    ```
 
 ## Without Docker
 
-- fork the repository into your github account
-- clone it into your local system `git clone <repository-name>`
 - Install the dependicies `npm install `
 - Add the env variables `MONGO_URL="add-your-mongo-url" SECRET_CODE="ETsledjf340854"`
 - Start the server ` node app.js` or `nodemon app.js`
