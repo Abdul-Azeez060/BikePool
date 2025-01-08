@@ -148,17 +148,14 @@ These routes handle user registration, login, profiles, and ratings.
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    included: true,
     required: true,
   },
   phone: {
     type: Number,
-    included: true,
     unique: true,
   },
   email: {
     type: String,
-    included: true,
     required: true,
     unique: true,
   },
@@ -183,26 +180,21 @@ const UserSchema = new mongoose.Schema({
 const DriverSchema = new mongoose.Schema({
   name: {
     type: String,
-    included: true,
   },
   phone: {
     type: Number,
-    included: true,
     unique: true,
   },
   email: {
     type: String,
-    included: true,
     unique: true,
   },
   bikeNum: {
     type: String,
-    included: true,
     unique: true,
   },
   bikeDesc: {
     type: String,
-    included: true,
   },
   role: {
     type: String,
@@ -229,23 +221,18 @@ const DriverSchema = new mongoose.Schema({
 const OrderSchema = new mongoose.Schema({
   name: {
     type: String,
-    included: true,
   },
   price: {
     type: Number,
-    included: true,
   },
   pickUp: {
     type: String,
-    included: true,
   },
   dropIn: {
     type: String,
-    included: true,
   },
   time: {
     type: String,
-    included: true,
   },
   isBooked: {
     type: Boolean,
@@ -289,20 +276,18 @@ const ReviewSchema = mongoose.Schema({
 const BookedOrderSchema = new mongoose.Schema({
   name: {
     type: String,
-    included: true,
   },
   price: {
     type: Number,
-    included: true,
   },
   pickUp
 
 ```
 
-## Clone into local system
+## Clone and Run Locally
 
 - fork the repository into your github account
-- clone it into your local system `git clone <repository-name>`
+- clone it into your local system `git clone <repository-url>`
 
 ## With Docker
 
